@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useAuth } from '../store/useAuth';
-import LoadingSpinner from './ui/LoadingSpinner';
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../store/useAuth";
+import LoadingSpinner from "./ui/LoadingSpinner";
 
 interface AuthGuardProps {
   children: React.ReactNode;
   fallback?: React.ReactNode;
 }
 
-const AuthGuard: React.FC<AuthGuardProps> = ({ 
-  children, 
+const AuthGuard: React.FC<AuthGuardProps> = ({
+  children,
   fallback = (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="text-center">
@@ -16,7 +16,7 @@ const AuthGuard: React.FC<AuthGuardProps> = ({
         <p className="mt-4 text-gray-600">正在验证身份...</p>
       </div>
     </div>
-  )
+  ),
 }) => {
   const { isAuthenticated, initializeAuth, checkTokenExpiry } = useAuth();
   const [isInitializing, setIsInitializing] = useState(true);
@@ -33,7 +33,7 @@ const AuthGuard: React.FC<AuthGuardProps> = ({
         // 初始化认证状态
         await initializeAuth();
       } catch (error) {
-        console.error('认证初始化失败:', error);
+        console.error("认证初始化失败:", error);
       } finally {
         setIsInitializing(false);
       }
@@ -49,7 +49,7 @@ const AuthGuard: React.FC<AuthGuardProps> = ({
 
   // 如果未认证，重定向到登录页
   if (!isAuthenticated) {
-    window.location.href = '/login';
+    window.location.href = "/login";
     return null;
   }
 

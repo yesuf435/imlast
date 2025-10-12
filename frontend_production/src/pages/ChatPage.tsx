@@ -15,6 +15,8 @@ import { useAuth } from "../store/useAuth";
 import { useChat } from "../store/useChat";
 
 // 组件
+import ConnectionStatus from "../components/auth/ConnectionStatus";
+import UserProfileEdit from "../components/auth/UserProfileEdit";
 import ChatArea from "../components/chat/ChatArea";
 import FriendsList from "../components/chat/FriendsList";
 import GroupsList from "../components/chat/GroupsList";
@@ -23,8 +25,6 @@ import AddFriendModal from "../components/modals/AddFriendModal";
 import CreateGroupModal from "../components/modals/CreateGroupModal";
 import FriendRequestsModal from "../components/modals/FriendRequestsModal";
 import UserProfileModal from "../components/modals/UserProfileModal";
-import UserProfileEdit from "../components/auth/UserProfileEdit";
-import ConnectionStatus from "../components/auth/ConnectionStatus";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 type ActiveTab = "chats" | "friends" | "groups" | "settings";
@@ -201,12 +201,16 @@ const ChatPage: React.FC = () => {
       <div className="w-16 bg-gradient-to-b from-blue-600 to-blue-700 flex flex-col items-center py-4 shadow-lg">
         {/* 用户头像 */}
         <div className="mb-8">
-          <div 
+          <div
             className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-blue-600 font-semibold cursor-pointer hover:shadow-md transition-shadow"
             onClick={() => setShowUserProfile(true)}
           >
             {user.avatar ? (
-              <img src={user.avatar} alt={user.username} className="w-full h-full rounded-full object-cover" />
+              <img
+                src={user.avatar}
+                alt={user.username}
+                className="w-full h-full rounded-full object-cover"
+              />
             ) : (
               user.username[0].toUpperCase()
             )}

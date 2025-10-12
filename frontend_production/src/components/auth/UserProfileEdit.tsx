@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { User, Mail, Camera, Save, X } from 'lucide-react';
-import { useAuth } from '../../store/useAuth';
-import { api } from '../../services/api';
-import toast from 'react-hot-toast';
-import LoadingSpinner from '../ui/LoadingSpinner';
+import { Camera, Mail, Save, User, X } from "lucide-react";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { api } from "../../services/api";
+import { useAuth } from "../../store/useAuth";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 interface UserProfileEditProps {
   onClose: () => void;
@@ -12,18 +12,18 @@ interface UserProfileEditProps {
 const UserProfileEdit: React.FC<UserProfileEditProps> = ({ onClose }) => {
   const { user, updateUser } = useAuth();
   const [formData, setFormData] = useState({
-    username: user?.username || '',
-    email: user?.email || '',
-    avatar: user?.avatar || ''
+    username: user?.username || "",
+    email: user?.email || "",
+    avatar: user?.avatar || "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -32,34 +32,34 @@ const UserProfileEdit: React.FC<UserProfileEditProps> = ({ onClose }) => {
     if (!file) return;
 
     // 检查文件类型
-    if (!file.type.startsWith('image/')) {
-      toast.error('请选择图片文件');
+    if (!file.type.startsWith("image/")) {
+      toast.error("请选择图片文件");
       return;
     }
 
     // 检查文件大小 (5MB)
     if (file.size > 5 * 1024 * 1024) {
-      toast.error('图片大小不能超过5MB');
+      toast.error("图片大小不能超过5MB");
       return;
     }
 
     try {
       setIsUploadingAvatar(true);
-      
+
       const formData = new FormData();
-      formData.append('file', file);
-      
+      formData.append("file", file);
+
       const response = await api.uploadFile(formData);
-      
-      setFormData(prev => ({
+
+      setFormData((prev) => ({
         ...prev,
-        avatar: response.filePath
+        avatar: response.filePath,
       }));
-      
-      toast.success('头像上传成功');
+
+      toast.success("头像上传成功");
     } catch (error: any) {
-      console.error('头像上传失败:', error);
-      toast.error('头像上传失败: ' + (error.message || '未知错误'));
+      console.error("头像上传失败:", error);
+      toast.error("头像上传失败: " + (error.message || "未知错误"));
     } finally {
       setIsUploadingAvatar(false);
     }
@@ -67,26 +67,26 @@ const UserProfileEdit: React.FC<UserProfileEditProps> = ({ onClose }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.username.trim()) {
-      toast.error('用户名不能为空');
+      toast.error("用户名不能为空");
       return;
     }
 
     try {
       setIsLoading(true);
-      
+
       // 这里应该调用更新用户资料的API
       // const response = await api.updateUserProfile(formData);
-      
+
       // 暂时直接更新本地状态
       updateUser(formData);
-      
-      toast.success('资料更新成功');
+
+      toast.success("资料更新成功");
       onClose();
     } catch (error: any) {
-      console.error('更新资料失败:', error);
-      toast.error('更新资料失败: ' + (error.message || '未知错误'));
+      console.error("更新资料失败:", error);
+      toast.error("更新资料失败: " + (error.message || "未知错误"));
     } finally {
       setIsLoading(false);
     }
@@ -111,13 +111,13 @@ const UserProfileEdit: React.FC<UserProfileEditProps> = ({ onClose }) => {
             <div className="relative">
               <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-xl">
                 {formData.avatar ? (
-                  <img 
-                    src={formData.avatar} 
-                    alt="头像" 
+                  <img
+                    src={formData.avatar}
+                    alt="头像"
                     className="w-full h-full rounded-full object-cover"
                   />
                 ) : (
-                  formData.username[0]?.toUpperCase() || 'U'
+                  formData.username[0]?.toUpperCase() || "U"
                 )}
               </div>
               <label className="absolute -bottom-1 -right-1 bg-blue-500 text-white rounded-full p-1 cursor-pointer hover:bg-blue-600 transition-colors">
