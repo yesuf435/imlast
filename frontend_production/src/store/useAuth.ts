@@ -16,14 +16,18 @@ interface AuthState {
   token: string | null;
   isLoading: boolean;
   isAuthenticated: boolean;
+  lastActivity: number;
   
   // Actions
   login: (username: string, password: string) => Promise<void>;
   register: (username: string, password: string, email?: string) => Promise<void>;
   logout: () => Promise<void>;
   clearAuth: () => void;
-  initializeAuth: () => void;
+  initializeAuth: () => Promise<void>;
   updateUser: (userData: Partial<User>) => void;
+  refreshToken: () => Promise<boolean>;
+  updateActivity: () => void;
+  checkTokenExpiry: () => boolean;
 }
 
 export const useAuth = create<AuthState>()(
@@ -33,6 +37,7 @@ export const useAuth = create<AuthState>()(
       token: null,
       isLoading: false,
       isAuthenticated: false,
+      lastActivity: Date.now(),
 
       login: async (username: string, password: string) => {
         set({ isLoading: true });
@@ -44,6 +49,7 @@ export const useAuth = create<AuthState>()(
             token: response.token,
             isAuthenticated: true,
             isLoading: false,
+            lastActivity: Date.now(),
           });
         } catch (error: any) {
           set({ isLoading: false });
@@ -85,11 +91,52 @@ export const useAuth = create<AuthState>()(
         });
       },
 
-      initializeAuth: () => {
+      initializeAuth: async () => {
         const { token, user } = get();
         if (token && user) {
-          set({ isAuthenticated: true });
+          try {
+            // 验证token是否有效
+            const response = await api.getUserProfile();
+            set({ 
+              isAuthenticated: true,
+              user: response.user,
+              lastActivity: Date.now()
+            });
+          } catch (error) {
+            // Token无效，清除认证信息
+            get().clearAuth();
+          }
         }
+      },
+
+      refreshToken: async () => {
+        try {
+          const response = await api.getUserProfile();
+          set({
+            user: response.user,
+            lastActivity: Date.now()
+          });
+          return true;
+        } catch (error) {
+          get().clearAuth();
+          return false;
+        }
+      },
+
+      updateActivity: () => {
+        set({ lastActivity: Date.now() });
+      },
+
+      checkTokenExpiry: () => {
+        const { lastActivity } = get();
+        const now = Date.now();
+        const TOKEN_EXPIRY_TIME = 24 * 60 * 60 * 1000; // 24小时
+        
+        if (now - lastActivity > TOKEN_EXPIRY_TIME) {
+          get().clearAuth();
+          return false;
+        }
+        return true;
       },
 
       updateUser: (userData: Partial<User>) => {
@@ -107,6 +154,7 @@ export const useAuth = create<AuthState>()(
         user: state.user,
         token: state.token,
         isAuthenticated: state.isAuthenticated,
+        lastActivity: state.lastActivity,
       }),
     }
   )

@@ -1135,7 +1135,7 @@ app.post(
         fileName: req.file.originalname,
         fileSize: req.file.size,
         fileType: fileType,
-        mimeType: req.file.mimetype
+        mimeType: req.file.mimetype,
       });
     } catch (error) {
       console.error("File upload error:", error);

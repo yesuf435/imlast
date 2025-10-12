@@ -23,6 +23,8 @@ import AddFriendModal from "../components/modals/AddFriendModal";
 import CreateGroupModal from "../components/modals/CreateGroupModal";
 import FriendRequestsModal from "../components/modals/FriendRequestsModal";
 import UserProfileModal from "../components/modals/UserProfileModal";
+import UserProfileEdit from "../components/auth/UserProfileEdit";
+import ConnectionStatus from "../components/auth/ConnectionStatus";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 type ActiveTab = "chats" | "friends" | "groups" | "settings";
@@ -43,6 +45,7 @@ const ChatPage: React.FC = () => {
   const [showAddFriend, setShowAddFriend] = useState(false);
   const [showCreateGroup, setShowCreateGroup] = useState(false);
   const [showUserProfile, setShowUserProfile] = useState(false);
+  const [showUserProfileEdit, setShowUserProfileEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -197,11 +200,18 @@ const ChatPage: React.FC = () => {
       {/* 主侧边栏 */}
       <div className="w-16 bg-gradient-to-b from-blue-600 to-blue-700 flex flex-col items-center py-4 shadow-lg">
         {/* 用户头像 */}
-        <div
-          className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-blue-600 font-semibold mb-8 cursor-pointer hover:shadow-md transition-shadow"
-          onClick={() => setShowUserProfile(true)}
-        >
-          {user.username[0].toUpperCase()}
+        <div className="mb-8">
+          <div 
+            className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-blue-600 font-semibold cursor-pointer hover:shadow-md transition-shadow"
+            onClick={() => setShowUserProfile(true)}
+          >
+            {user.avatar ? (
+              <img src={user.avatar} alt={user.username} className="w-full h-full rounded-full object-cover" />
+            ) : (
+              user.username[0].toUpperCase()
+            )}
+          </div>
+          <ConnectionStatus className="mt-2" />
         </div>
 
         {/* 导航标签 */}
@@ -319,6 +329,15 @@ const ChatPage: React.FC = () => {
         isOpen={showUserProfile}
         onClose={() => setShowUserProfile(false)}
         user={user}
+        onEdit={() => {
+          setShowUserProfile(false);
+          setShowUserProfileEdit(true);
+        }}
+      />
+
+      <UserProfileEdit
+        isOpen={showUserProfileEdit}
+        onClose={() => setShowUserProfileEdit(false)}
       />
     </div>
   );
