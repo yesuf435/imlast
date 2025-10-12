@@ -1,28 +1,18 @@
-import {
-    FileText,
-    Image as ImageIcon,
-    MoreVertical,
-    Paperclip,
-    Phone,
-    Send,
-    Smile,
-    Video,
-} from 'lucide-react';
-import React, { useEffect, useRef, useState } from 'react';
-import toast from 'react-hot-toast';
-import { api } from '../../services/api';
-import { socketService } from '../../services/socket';
-import { useAuth } from '../../store/useAuth';
-import { useChat } from '../../store/useChat';
-import LoadingSpinner from '../ui/LoadingSpinner';
-import MessageBubble from './MessageBubble';
-import MessageInput from './MessageInput';
+import { MoreVertical, Phone, Send, Video } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
+import { api } from "../../services/api";
+import { useAuth } from "../../store/useAuth";
+import { useChat } from "../../store/useChat";
+import LoadingSpinner from "../ui/LoadingSpinner";
+import MessageBubble from "./MessageBubble";
+import MessageInput from "./MessageInput";
 
 type Message = {
   id: string;
   sender_id: string;
   sender_name: string;
-  message_type: 'text' | 'image' | 'file';
+  message_type: "text" | "image" | "file";
   content: string;
   created_at: string;
 };
@@ -39,7 +29,7 @@ const ChatArea: React.FC = () => {
 
   // 滚动到底部
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -53,14 +43,14 @@ const ChatArea: React.FC = () => {
     setIsLoading(true);
 
     try {
-      if (currentChat.type === 'group') {
+      if (currentChat.type === "group") {
         await api.sendGroupMessage(currentChat.id, messageContent);
       } else {
         await api.sendPrivateMessage(currentChat.id, messageContent);
       }
     } catch (error: any) {
-      console.error('发送消息失败:', error);
-      toast.error('发送消息失败: ' + (error.message || '未知错误'));
+      console.error("发送消息失败:", error);
+      toast.error("发送消息失败: " + (error.message || "未知错误"));
     } finally {
       setIsLoading(false);
     }
@@ -70,30 +60,38 @@ const ChatArea: React.FC = () => {
   const handleFileUpload = async (file: File) => {
     // 检查文件大小（50MB限制）
     if (file.size > 50 * 1024 * 1024) {
-      toast.error('文件大小不能超过50MB');
+      toast.error("文件大小不能超过50MB");
       return;
     }
 
     try {
       setIsLoading(true);
-      
+
       // 上传文件
       const formData = new FormData();
-      formData.append('file', file);
-      
+      formData.append("file", file);
+
       const uploadResponse = await api.uploadFile(formData);
-      
+
       // 发送文件消息
-      if (currentChat.type === 'group') {
-        await api.sendGroupMessage(currentChat.id, uploadResponse.filePath, 'file');
+      if (currentChat.type === "group") {
+        await api.sendGroupMessage(
+          currentChat.id,
+          uploadResponse.filePath,
+          "file"
+        );
       } else {
-        await api.sendPrivateMessage(currentChat.id, uploadResponse.filePath, 'file');
+        await api.sendPrivateMessage(
+          currentChat.id,
+          uploadResponse.filePath,
+          "file"
+        );
       }
-      
-      toast.success('文件发送成功');
+
+      toast.success("文件发送成功");
     } catch (error: any) {
-      console.error('文件上传失败:', error);
-      toast.error('文件上传失败: ' + (error.message || '未知错误'));
+      console.error("文件上传失败:", error);
+      toast.error("文件上传失败: " + (error.message || "未知错误"));
     } finally {
       setIsLoading(false);
     }
@@ -107,7 +105,9 @@ const ChatArea: React.FC = () => {
           <div className="w-24 h-24 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center">
             <Send className="h-12 w-12 text-gray-400" />
           </div>
-          <h3 className="text-xl font-semibold text-gray-600 mb-2">欢迎使用IM聊天</h3>
+          <h3 className="text-xl font-semibold text-gray-600 mb-2">
+            欢迎使用IM聊天
+          </h3>
           <p className="text-gray-500">选择一个聊天开始对话</p>
         </div>
       </div>
@@ -127,11 +127,11 @@ const ChatArea: React.FC = () => {
           <div>
             <h3 className="font-semibold text-gray-900">{currentChat.name}</h3>
             <p className="text-sm text-gray-500">
-              {currentChat.type === 'group' ? '群聊' : '私聊'}
+              {currentChat.type === "group" ? "群聊" : "私聊"}
             </p>
           </div>
         </div>
-        
+
         <div className="flex items-center space-x-2">
           <button
             className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
@@ -162,10 +162,12 @@ const ChatArea: React.FC = () => {
           </div>
         ) : (
           currentMessages.map((message: Message, index: number) => {
-            const prevMessage = index > 0 ? currentMessages[index - 1] : undefined;
+            const prevMessage =
+              index > 0 ? currentMessages[index - 1] : undefined;
             const isOwn = message.sender_id === user?.id;
-            const showAvatar = !prevMessage || prevMessage.sender_id !== message.sender_id;
-            
+            const showAvatar =
+              !prevMessage || prevMessage.sender_id !== message.sender_id;
+
             return (
               <MessageBubble
                 key={message.id}

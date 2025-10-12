@@ -1,50 +1,50 @@
 import {
-    Bell,
-    LogOut,
-    MessageSquare,
-    Search,
-    Settings,
-    UserPlus,
-    Users,
-} from 'lucide-react';
-import React, { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { api } from '../services/api';
-import { socketService } from '../services/socket';
-import { useAuth } from '../store/useAuth';
-import { useChat } from '../store/useChat';
+  Bell,
+  LogOut,
+  MessageSquare,
+  Search,
+  Settings,
+  UserPlus,
+  Users,
+} from "lucide-react";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { api } from "../services/api";
+import { socketService } from "../services/socket";
+import { useAuth } from "../store/useAuth";
+import { useChat } from "../store/useChat";
 
 // 组件
-import ChatArea from '../components/chat/ChatArea';
-import FriendsList from '../components/chat/FriendsList';
-import GroupsList from '../components/chat/GroupsList';
-import RecentChats from '../components/chat/RecentChats';
-import AddFriendModal from '../components/modals/AddFriendModal';
-import CreateGroupModal from '../components/modals/CreateGroupModal';
-import FriendRequestsModal from '../components/modals/FriendRequestsModal';
-import UserProfileModal from '../components/modals/UserProfileModal';
-import LoadingSpinner from '../components/ui/LoadingSpinner';
+import ChatArea from "../components/chat/ChatArea";
+import FriendsList from "../components/chat/FriendsList";
+import GroupsList from "../components/chat/GroupsList";
+import RecentChats from "../components/chat/RecentChats";
+import AddFriendModal from "../components/modals/AddFriendModal";
+import CreateGroupModal from "../components/modals/CreateGroupModal";
+import FriendRequestsModal from "../components/modals/FriendRequestsModal";
+import UserProfileModal from "../components/modals/UserProfileModal";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
-type ActiveTab = 'chats' | 'friends' | 'groups' | 'settings';
+type ActiveTab = "chats" | "friends" | "groups" | "settings";
 
 const ChatPage: React.FC = () => {
   const { user, logout } = useAuth();
-  const { 
-    currentChat, 
-    setFriends, 
-    setGroups, 
+  const {
+    currentChat,
+    setFriends,
+    setGroups,
     setFriendRequests,
     setOnlineUsers,
-    addMessage
+    addMessage,
   } = useChat();
 
-  const [activeTab, setActiveTab] = useState<ActiveTab>('chats');
+  const [activeTab, setActiveTab] = useState<ActiveTab>("chats");
   const [showFriendRequests, setShowFriendRequests] = useState(false);
   const [showAddFriend, setShowAddFriend] = useState(false);
   const [showCreateGroup, setShowCreateGroup] = useState(false);
   const [showUserProfile, setShowUserProfile] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   // 初始化数据
   useEffect(() => {
@@ -61,26 +61,25 @@ const ChatPage: React.FC = () => {
   const loadInitialData = async () => {
     try {
       setIsLoading(true);
-      
+
       // 并行加载数据
       const [friendsRes, groupsRes, requestsRes] = await Promise.all([
         api.getFriends(),
-        api.getMyGroups(), 
-        api.getFriendRequests()
+        api.getMyGroups(),
+        api.getFriendRequests(),
       ]);
 
       setFriends(friendsRes.friends || []);
       setGroups(groupsRes.groups || []);
       setFriendRequests(requestsRes || { received: [], sent: [] });
-      
+
       // 连接Socket
       if (user?.token) {
         await socketService.connect(user.token);
       }
-      
     } catch (error: any) {
-      console.error('加载数据失败:', error);
-      toast.error('加载数据失败: ' + (error.message || '未知错误'));
+      console.error("加载数据失败:", error);
+      toast.error("加载数据失败: " + (error.message || "未知错误"));
     } finally {
       setIsLoading(false);
     }
@@ -95,9 +94,9 @@ const ChatPage: React.FC = () => {
     // 监听群组消息
     socketService.onGroupMessage((message) => {
       addMessage(message.group_id, message);
-      
+
       // 如果不在当前聊天中，显示通知
-      if (currentChat.type !== 'group' || currentChat.id !== message.group_id) {
+      if (currentChat.type !== "group" || currentChat.id !== message.group_id) {
         toast.success(`${message.sender_name}: ${message.content}`, {
           duration: 3000,
         });
@@ -108,9 +107,12 @@ const ChatPage: React.FC = () => {
     socketService.onPrivateMessage((message) => {
       const chatId = `private_${message.sender_id}`;
       addMessage(chatId, message);
-      
+
       // 如果不在当前聊天中，显示通知
-      if (currentChat.type !== 'private' || currentChat.id !== message.sender_id) {
+      if (
+        currentChat.type !== "private" ||
+        currentChat.id !== message.sender_id
+      ) {
         toast.success(`${message.sender_name}: ${message.content}`, {
           duration: 3000,
         });
@@ -138,30 +140,30 @@ const ChatPage: React.FC = () => {
     try {
       socketService.disconnect();
       await logout();
-      toast.success('已退出登录');
+      toast.success("已退出登录");
     } catch (error) {
-      console.error('退出登录失败:', error);
-      toast.error('退出登录失败');
+      console.error("退出登录失败:", error);
+      toast.error("退出登录失败");
     }
   };
 
   const tabItems = [
     {
-      key: 'chats' as ActiveTab,
+      key: "chats" as ActiveTab,
       icon: MessageSquare,
-      label: '聊天',
+      label: "聊天",
       badge: 0,
     },
     {
-      key: 'friends' as ActiveTab,
+      key: "friends" as ActiveTab,
       icon: Users,
-      label: '好友',
+      label: "好友",
       badge: 0,
     },
     {
-      key: 'groups' as ActiveTab,
+      key: "groups" as ActiveTab,
       icon: MessageSquare,
-      label: '群组',
+      label: "群组",
       badge: 0,
     },
   ];
@@ -176,11 +178,11 @@ const ChatPage: React.FC = () => {
     }
 
     switch (activeTab) {
-      case 'friends':
+      case "friends":
         return <FriendsList searchQuery={searchQuery} />;
-      case 'groups':
+      case "groups":
         return <GroupsList searchQuery={searchQuery} />;
-      case 'chats':
+      case "chats":
       default:
         return <RecentChats />;
     }
@@ -195,7 +197,7 @@ const ChatPage: React.FC = () => {
       {/* 主侧边栏 */}
       <div className="w-16 bg-gradient-to-b from-blue-600 to-blue-700 flex flex-col items-center py-4 shadow-lg">
         {/* 用户头像 */}
-        <div 
+        <div
           className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-blue-600 font-semibold mb-8 cursor-pointer hover:shadow-md transition-shadow"
           onClick={() => setShowUserProfile(true)}
         >
@@ -212,8 +214,8 @@ const ChatPage: React.FC = () => {
                 onClick={() => setActiveTab(item.key)}
                 className={`relative w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 ${
                   activeTab === item.key
-                    ? 'bg-white text-blue-600 shadow-md'
-                    : 'text-white hover:text-blue-100 hover:bg-blue-500'
+                    ? "bg-white text-blue-600 shadow-md"
+                    : "text-white hover:text-blue-100 hover:bg-blue-500"
                 }`}
                 title={item.label}
               >
@@ -250,11 +252,11 @@ const ChatPage: React.FC = () => {
 
           {/* 设置 */}
           <button
-            onClick={() => setActiveTab('settings')}
+            onClick={() => setActiveTab("settings")}
             className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 ${
-              activeTab === 'settings'
-                ? 'bg-white text-blue-600 shadow-md'
-                : 'text-white hover:text-blue-100 hover:bg-blue-500'
+              activeTab === "settings"
+                ? "bg-white text-blue-600 shadow-md"
+                : "text-white hover:text-blue-100 hover:bg-blue-500"
             }`}
             title="设置"
           >
@@ -289,9 +291,7 @@ const ChatPage: React.FC = () => {
         </div>
 
         {/* 内容区域 */}
-        <div className="flex-1 overflow-y-auto">
-          {renderSidebarContent()}
-        </div>
+        <div className="flex-1 overflow-y-auto">{renderSidebarContent()}</div>
       </div>
 
       {/* 聊天区域 */}
@@ -300,11 +300,11 @@ const ChatPage: React.FC = () => {
       </div>
 
       {/* 模态框 */}
-      <FriendRequestsModal 
+      <FriendRequestsModal
         isOpen={showFriendRequests}
         onClose={() => setShowFriendRequests(false)}
       />
-      
+
       <AddFriendModal
         isOpen={showAddFriend}
         onClose={() => setShowAddFriend(false)}

@@ -1115,6 +1115,35 @@ io.on("connection", (socket) => {
   });
 });
 
+// 文件上传API (前端使用)
+app.post(
+  "/api/upload/file",
+  authenticateToken,
+  upload.single("file"),
+  (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+      }
+
+      const fileUrl = `/uploads/${req.file.filename}`;
+      const fileType = getFileType(req.file.mimetype);
+
+      res.json({
+        success: true,
+        filePath: fileUrl,
+        fileName: req.file.originalname,
+        fileSize: req.file.size,
+        fileType: fileType,
+        mimeType: req.file.mimetype
+      });
+    } catch (error) {
+      console.error("File upload error:", error);
+      res.status(500).json({ error: "Upload failed" });
+    }
+  }
+);
+
 // Health check endpoints
 app.get("/", (req, res) => res.send("Backend is running"));
 app.get("/health", (req, res) =>
