@@ -6,7 +6,7 @@ echo "=========================================="
 
 # 配置
 API_BASE="http://localhost:3001"
-UPLOAD_DIR="/www/wwwroot/im-last/uploads"
+UPLOAD_DIR="./uploads"
 
 show_help() {
     echo "用法: $0 [选项] [文件路径]"

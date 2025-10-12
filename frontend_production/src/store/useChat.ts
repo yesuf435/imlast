@@ -27,6 +27,7 @@ interface Friend {
   status: "online" | "offline";
   lastSeen?: string;
   isOnline?: boolean;
+  role?: "user" | "admin" | "agent";
 }
 
 interface Group {

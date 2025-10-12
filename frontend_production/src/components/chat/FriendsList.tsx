@@ -50,7 +50,19 @@ const FriendsList: React.FC<FriendsListProps> = ({ searchQuery }) => {
                 }`} />
               </div>
               <div className="ml-3 flex-1">
-                <p className="font-medium text-gray-900">{friend.username}</p>
+                <div className="flex items-center gap-2">
+                  <p className="font-medium text-gray-900">{friend.username}</p>
+                  {friend.role === 'agent' && (
+                    <span className="px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full font-medium">
+                      经纪人
+                    </span>
+                  )}
+                  {friend.role === 'admin' && (
+                    <span className="px-2 py-0.5 bg-red-100 text-red-800 text-xs rounded-full font-medium">
+                      管理员
+                    </span>
+                  )}
+                </div>
                 <p className="text-sm text-gray-500">
                   {friend.status === 'online' ? '在线' : '离线'}
                 </p>

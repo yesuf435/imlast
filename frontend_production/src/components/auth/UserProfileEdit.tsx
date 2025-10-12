@@ -100,6 +100,8 @@ const UserProfileEdit: React.FC<UserProfileEditProps> = ({ onClose }) => {
           <button
             onClick={onClose}
             className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
+            title="关闭"
+            aria-label="关闭编辑资料"
           >
             <X className="h-5 w-5" />
           </button>
@@ -128,6 +130,8 @@ const UserProfileEdit: React.FC<UserProfileEditProps> = ({ onClose }) => {
                   onChange={handleAvatarUpload}
                   className="hidden"
                   disabled={isUploadingAvatar}
+                  aria-label="上传头像"
+                  title="选择头像文件"
                 />
               </label>
             </div>

@@ -1,0 +1,42 @@
+{
+  "name": "im-system",
+  "version": "1.0.0",
+  "description": "现代化IM即时通讯系统 - 生产部署包",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "dev": "cd backend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "deploy": "node deploy.js",
+    "pm2:start": "cd backend && npm run pm2:start",
+    "pm2:stop": "cd backend && npm run pm2:stop",
+    "pm2:restart": "cd backend && npm run pm2:restart",
+    "docker:build": "docker-compose -f docker-compose.prod.yml build",
+    "docker:up": "docker-compose -f docker-compose.prod.yml up -d",
+    "docker:down": "docker-compose -f docker-compose.prod.yml down"
+  },
+  "keywords": [
+    "im",
+    "chat",
+    "messaging",
+    "socket.io",
+    "mongodb",
+    "real-time",
+    "deployment"
+  ],
+  "author": "IM Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-repo/im-system.git"
+  },
+  "homepage": "https://your-domain.com",
+  "bugs": {
+    "url": "https://github.com/your-repo/im-system/issues"
+  }
+}
+

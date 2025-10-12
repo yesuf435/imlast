@@ -1,0 +1,214 @@
+{
+  "messages": [
+    {
+      "sender": "68eb90d5d3d97dc5cfb37086",
+      "receiver": "68eb90d1d3d97dc5cfb37083",
+      "content": "刘先生在吗 冒昧打扰 我是群里的周-上海-老家具 看了您那幅双骏图 夜里睡不着 必须得跟您说两句",
+      "type": "text",
+      "timestamp": "2025-09-15T20:45:00Z"
+    },
+    {
+      "sender": "68eb90d1d3d97dc5cfb37083",
+      "receiver": "68eb90d5d3d97dc5cfb37086",
+      "content": "在的 周先生您好",
+      "type": "text",
+      "timestamp": "2025-09-15T20:46:00Z"
+    },
+    {
+      "sender": "68eb90d5d3d97dc5cfb37086",
+      "receiver": "68eb90d1d3d97dc5cfb37083",
+      "content": "刘先生 好东西啊 真是好东西 我不跟您说那些虚的 您看那匹马的眼睛 悲鸿先生画马 点睛之笔全在眼神",
+      "type": "text",
+      "timestamp": "2025-09-15T20:47:00Z"
+    },
+    {
+      "sender": "68eb90d1d3d97dc5cfb37083",
+      "receiver": "68eb90d5d3d97dc5cfb37086",
+      "content": "周先生您是行家 说得太对了 我爹在世时 每年秋天都要把这画请出来在通风处晾一晾",
+      "type": "text",
+      "timestamp": "2025-09-15T20:48:00Z"
+    },
+    {
+      "sender": "68eb90d5d3d97dc5cfb37086",
+      "receiver": "68eb90d1d3d97dc5cfb37083",
+      "content": "哈哈哈 老爷子是懂行的 老派藏家都这么讲究 这画遇到您家 是它的福气",
+      "type": "text",
+      "timestamp": "2025-09-15T20:49:00Z"
+    },
+    {
+      "sender": "68eb90d5d3d97dc5cfb37086",
+      "receiver": "68eb90d1d3d97dc5cfb37083",
+      "content": "刘先生 早 我这边天刚亮 看着黄浦江 脑子里还是您那两匹马 真是魔怔了",
+      "type": "text",
+      "timestamp": "2025-09-16T08:30:00Z"
+    },
+    {
+      "sender": "68eb90d1d3d97dc5cfb37083",
+      "receiver": "68eb90d5d3d97dc5cfb37086",
+      "content": "周先生早 您起得真早",
+      "type": "text",
+      "timestamp": "2025-09-16T08:31:00Z"
+    },
+    {
+      "sender": "68eb90d5d3d97dc5cfb37086",
+      "receiver": "68eb90d1d3d97dc5cfb37083",
+      "content": "习惯了 年纪大了睡不多 刘先生 听您口音像是黑龙江那片的",
+      "type": "text",
+      "timestamp": "2025-09-16T08:32:00Z"
+    },
+    {
+      "sender": "68eb90d1d3d97dc5cfb37083",
+      "receiver": "68eb90d5d3d97dc5cfb37086",
+      "content": "嗯呐 哈尔滨周边的",
+      "type": "text",
+      "timestamp": "2025-09-16T08:33:00Z"
+    },
+    {
+      "sender": "68eb90d5d3d97dc5cfb37086",
+      "receiver": "68eb90d1d3d97dc5cfb37083",
+      "content": "缘分 我八十年代就跑哈尔滨那边的林场 收老红松 榆木大料 做仿古家具",
+      "type": "text",
+      "timestamp": "2025-09-16T08:34:00Z"
+    },
+    {
+      "sender": "68eb90d5d3d97dc5cfb37086",
+      "receiver": "68eb90d1d3d97dc5cfb37083",
+      "content": "刘先生 吃饭没 别光顾着忙 饭得按时吃",
+      "type": "text",
+      "timestamp": "2025-09-16T12:10:00Z"
+    },
+    {
+      "sender": "68eb90d1d3d97dc5cfb37083",
+      "receiver": "68eb90d5d3d97dc5cfb37086",
+      "content": "正准备吃呢 周先生您这就餐环境真雅致",
+      "type": "text",
+      "timestamp": "2025-09-16T12:11:00Z"
+    },
+    {
+      "sender": "68eb90d5d3d97dc5cfb37086",
+      "receiver": "68eb90d1d3d97dc5cfb37083",
+      "content": "说句实在话 您这幅画放在佳士得 流程 宣传都没得说 肯定是好事 但大机构吧 有时候也店大欺客",
+      "type": "text",
+      "timestamp": "2025-09-16T12:12:00Z"
+    },
+    {
+      "sender": "68eb90d1d3d97dc5cfb37083",
+      "receiver": "68eb90d5d3d97dc5cfb37086",
+      "content": "唉 不瞒您说 之前看图录上写八万到十二万美金 我心都凉了半截",
+      "type": "text",
+      "timestamp": "2025-09-16T12:13:00Z"
+    },
+    {
+      "sender": "68eb90d5d3d97dc5cfb37086",
+      "receiver": "68eb90d1d3d97dc5cfb37083",
+      "content": "您看 我说吧 这就是策略 他们用低价把人都吸引进来 最后价格是能上去 但过程折腾人啊",
+      "type": "text",
+      "timestamp": "2025-09-16T12:14:00Z"
+    },
+    {
+      "sender": "68eb90d5d3d97dc5cfb37086",
+      "receiver": "68eb90d1d3d97dc5cfb37083",
+      "content": "刘先生 我这边刚送走一个客户 脑子里还在盘算您这幅画 我有个想法 可能有点唐突",
+      "type": "text",
+      "timestamp": "2025-09-16T16:55:00Z"
+    },
+    {
+      "sender": "68eb90d1d3d97dc5cfb37083",
+      "receiver": "68eb90d5d3d97dc5cfb37086",
+      "content": "周大哥您太客气了 您说",
+      "type": "text",
+      "timestamp": "2025-09-16T16:56:00Z"
+    },
+    {
+      "sender": "68eb90d5d3d97dc5cfb37086",
+      "receiver": "68eb90d1d3d97dc5cfb37083",
+      "content": "兄弟 我这么叫您不介意吧 是这样 我越看越喜欢这幅双骏图 想请回家里天天看着",
+      "type": "text",
+      "timestamp": "2025-09-16T16:57:00Z"
+    },
+    {
+      "sender": "68eb90d1d3d97dc5cfb37083",
+      "receiver": "68eb90d5d3d97dc5cfb37086",
+      "content": "这……周大哥 这……这合适吗 李经纪那边……",
+      "type": "text",
+      "timestamp": "2025-09-16T16:58:00Z"
+    },
+    {
+      "sender": "68eb90d5d3d97dc5cfb37086",
+      "receiver": "68eb90d1d3d97dc5cfb37083",
+      "content": "李经纪人是好人 专业 但他也得按公司规矩办事 有些话他没法跟您明说",
+      "type": "text",
+      "timestamp": "2025-09-16T16:59:00Z"
+    },
+    {
+      "sender": "68eb90d1d3d97dc5cfb37083",
+      "receiver": "68eb90d5d3d97dc5cfb37086",
+      "content": "周大哥 我……我明白您的诚意 真的 特别感谢您看得起 但我昨晚想了一宿 觉得还是不能这么办",
+      "type": "text",
+      "timestamp": "2025-09-17T10:01:00Z"
+    },
+    {
+      "sender": "68eb90d5d3d97dc5cfb37086",
+      "receiver": "68eb90d1d3d97dc5cfb37083",
+      "content": "明白了 刘兄弟 您这人 仁义 现在像您这么重情义 守规矩的人不多了 我尊重您的决定",
+      "type": "text",
+      "timestamp": "2025-09-17T10:11:00Z"
+    },
+    {
+      "sender": "68eb90d1d3d97dc5cfb37083",
+      "receiver": "68eb90d5d3d97dc5cfb37086",
+      "content": "一定一定 谢谢周大哥理解",
+      "type": "text",
+      "timestamp": "2025-09-17T10:12:00Z"
+    },
+    {
+      "sender": "68eb90d5d3d97dc5cfb37086",
+      "receiver": "68eb90d1d3d97dc5cfb37083",
+      "content": "刘兄弟，群里我跟李俊说的，你都看到了吧？",
+      "type": "text",
+      "timestamp": "2025-09-19T20:45:00Z"
+    },
+    {
+      "sender": "68eb90d1d3d97dc5cfb37083",
+      "receiver": "68eb90d5d3d97dc5cfb37086",
+      "content": "看到了看到了 周大哥 谢谢您替我说话",
+      "type": "text",
+      "timestamp": "2025-09-19T20:46:00Z"
+    },
+    {
+      "sender": "68eb90d5d3d97dc5cfb37086",
+      "receiver": "68eb90d1d3d97dc5cfb37083",
+      "content": "咳，我就是看不惯他们那套冠冕堂皇的说辞。什么国际标准、双向奔赴，听着好听，里子就是把风险和资金压力都转嫁给你",
+      "type": "text",
+      "timestamp": "2025-09-19T20:47:00Z"
+    },
+    {
+      "sender": "68eb90d1d3d97dc5cfb37083",
+      "receiver": "68eb90d5d3d97dc5cfb37086",
+      "content": "对 对啊 他就是不说怎么能让我少交点或者缓一缓",
+      "type": "text",
+      "timestamp": "2025-09-19T20:48:00Z"
+    },
+    {
+      "sender": "68eb90d5d3d97dc5cfb37086",
+      "receiver": "68eb90d1d3d97dc5cfb37083",
+      "content": "这就是问题的关键了。他李俊一个一线经纪人，权限有限。我敢打赌，他就算想帮你，也得层层上报",
+      "type": "text",
+      "timestamp": "2025-09-19T20:49:00Z"
+    },
+    {
+      "sender": "68eb90d1d3d97dc5cfb37083",
+      "receiver": "68eb90d5d3d97dc5cfb37086",
+      "content": "不……不能吧？李兄弟他……他看着不像这种人啊",
+      "type": "text",
+      "timestamp": "2025-09-19T20:50:00Z"
+    },
+    {
+      "sender": "68eb90d5d3d97dc5cfb37086",
+      "receiver": "68eb90d1d3d97dc5cfb37083",
+      "content": "李经纪人个人，我依然相信他是想帮你做成生意的。但他只是这个大机器里的一颗螺丝钉，很多事情，他身不由己",
+      "type": "text",
+      "timestamp": "2025-09-19T20:51:00Z"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "im-system-ci",
+  "version": "1.0.0",
+  "description": "IM系统CI/CD配置文件",
+  "scripts": {
+    "test": "echo 'No tests configured' && exit 0",
+    "test:backend": "cd backend && npm test",
+    "test:frontend": "cd frontend_production && npm test",
+    "lint": "npm run lint:backend && npm run lint:frontend",
+    "lint:backend": "cd backend && npx eslint . --ext .js",
+    "lint:frontend": "cd frontend_production && npx eslint . --ext .ts,.tsx",
+    "type-check": "cd frontend_production && npx tsc --noEmit",
+    "build": "npm run build:frontend",
+    "build:frontend": "cd frontend_production && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "docker:build": "docker-compose -f docker-compose.prod.yml build",
+    "docker:push": "docker-compose -f docker-compose.prod.yml push",
+    "deploy:staging": "echo 'Deploying to staging...'",
+    "deploy:production": "echo 'Deploying to production...'"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
+

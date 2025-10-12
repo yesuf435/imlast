@@ -169,9 +169,8 @@ const MessageInput: React.FC<MessageInputProps> = ({
             onKeyPress={handleKeyPress}
             placeholder={placeholder}
             disabled={disabled}
-            className="w-full resize-none border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed max-h-32"
+            className="w-full resize-none border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed max-h-32 min-h-[40px]"
             rows={1}
-            style={{ minHeight: "40px" }}
           />
         </div>
 

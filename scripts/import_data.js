@@ -4,7 +4,8 @@ const axios = require('axios');
 
 // 配置
 const API_BASE = 'http://localhost:3001';
-const ADMIN_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZWEyOWY1ZWIyMDM1YThkMDYzY2Q4MiIsInVzZXJuYW1lIjoiYWxpY2UiLCJpYXQiOjE3NjAxNzY2MzcsImV4cCI6MTc2MDc4MTQzN30.U2IW9lk68SnxYu92UkqvhlxSz0dLBX5jt_Uz8uWd3FI';
+// 注意：请替换为有效的管理员 token
+const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'your_admin_token_here';
 
 // 示例数据
 const sampleUsers = [

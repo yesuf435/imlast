@@ -1,0 +1,53 @@
+{
+  "messages": [
+    {
+      "sender": "lzg",
+      "receiver": "周(家具)上海",
+      "content": "你好！我是lzg",
+      "type": "text",
+      "timestamp": "2025-01-11T10:30:00Z"
+    },
+    {
+      "sender": "周(家具)上海",
+      "receiver": "lzg",
+      "content": "你好lzg！我是周(家具)上海，很高兴认识你",
+      "type": "text",
+      "timestamp": "2025-01-11T10:31:00Z"
+    },
+    {
+      "sender": "lzg",
+      "receiver": "周(家具)上海",
+      "content": "你的名字很有意思，是做家具生意的吗？",
+      "type": "text",
+      "timestamp": "2025-01-11T10:32:00Z"
+    },
+    {
+      "sender": "周(家具)上海",
+      "receiver": "lzg",
+      "content": "是的，我在上海做家具生意，你呢？",
+      "type": "text",
+      "timestamp": "2025-01-11T10:33:00Z"
+    },
+    {
+      "sender": "lzg",
+      "receiver": "周(家具)上海",
+      "content": "我是做IT的，程序员",
+      "type": "text",
+      "timestamp": "2025-01-11T10:34:00Z"
+    },
+    {
+      "sender": "周(家具)上海",
+      "receiver": "lzg",
+      "content": "程序员啊，很厉害！我们公司也需要做网站，有机会可以合作",
+      "type": "text",
+      "timestamp": "2025-01-11T10:35:00Z"
+    },
+    {
+      "sender": "lzg",
+      "receiver": "周(家具)上海",
+      "content": "好的，没问题！我们可以详细聊聊",
+      "type": "text",
+      "timestamp": "2025-01-11T10:36:00Z"
+    }
+  ]
+}
