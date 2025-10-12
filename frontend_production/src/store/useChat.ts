@@ -26,6 +26,7 @@ interface Friend {
   avatar?: string;
   status: 'online' | 'offline';
   lastSeen?: string;
+  isOnline?: boolean;
 }
 
 interface Group {
@@ -72,11 +73,14 @@ interface ChatState {
   setCurrentChat: (chat: Chat) => void;
   addMessage: (chatId: string, message: Message) => void;
   setMessages: (chatId: string, messages: Message[]) => void;
+  prependMessages: (chatId: string, messages: Message[]) => void;
   setFriends: (friends: Friend[]) => void;
   setGroups: (groups: Group[]) => void;
   setFriendRequests: (requests: { received: FriendRequest[]; sent: FriendRequest[] }) => void;
   setOnlineUsers: (users: string[]) => void;
   updateFriendStatus: (friendId: string, status: 'online' | 'offline') => void;
+  clearMessages: (chatId: string) => void;
+  markMessagesAsRead: (chatId: string) => void;
 }
 
 export const useChat = create<ChatState>((set) => ({
@@ -105,6 +109,13 @@ export const useChat = create<ChatState>((set) => ({
     }
   })),
   
+  prependMessages: (chatId, messages) => set((state) => ({
+    messages: {
+      ...state.messages,
+      [chatId]: [...messages, ...(state.messages[chatId] || [])]
+    }
+  })),
+  
   setFriends: (friends) => set({ friends }),
   setGroups: (groups) => set({ groups }),
   setFriendRequests: (friendRequests) => set({ friendRequests }),
@@ -112,7 +123,19 @@ export const useChat = create<ChatState>((set) => ({
   
   updateFriendStatus: (friendId, status) => set((state) => ({
     friends: state.friends.map(friend => 
-      friend.id === friendId ? { ...friend, status } : friend
+      friend.id === friendId ? { ...friend, status, isOnline: status === 'online' } : friend
     )
+  })),
+  
+  clearMessages: (chatId) => set((state) => ({
+    messages: {
+      ...state.messages,
+      [chatId]: []
+    }
+  })),
+  
+  markMessagesAsRead: (chatId) => set((state) => ({
+    // 这里可以添加标记消息为已读的逻辑
+    // 暂时保持原状
   })),
 }));

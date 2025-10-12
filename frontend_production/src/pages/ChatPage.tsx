@@ -18,6 +18,7 @@ import { useChat } from '../store/useChat';
 import ChatArea from '../components/chat/ChatArea';
 import FriendsList from '../components/chat/FriendsList';
 import GroupsList from '../components/chat/GroupsList';
+import RecentChats from '../components/chat/RecentChats';
 import AddFriendModal from '../components/modals/AddFriendModal';
 import CreateGroupModal from '../components/modals/CreateGroupModal';
 import FriendRequestsModal from '../components/modals/FriendRequestsModal';
@@ -181,15 +182,7 @@ const ChatPage: React.FC = () => {
         return <GroupsList searchQuery={searchQuery} />;
       case 'chats':
       default:
-        return (
-          <div className="p-4">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">最近聊天</h3>
-            <div className="text-gray-500 text-center py-8">
-              <MessageSquare className="h-12 w-12 mx-auto mb-2 text-gray-300" />
-              <p>选择一个聊天开始对话</p>
-            </div>
-          </div>
-        );
+        return <RecentChats />;
     }
   };
 
