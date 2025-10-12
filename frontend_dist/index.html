@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IM即时通讯系统 - 最新版</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/socket.io-client@4/dist/socket.io.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .chat-container {
+            height: calc(100vh - 120px);
+        }
+        .message-bubble {
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+        .online-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #10b981;
+        }
+        .feature-card {
+            transition: transform 0.2s;
+        }
+        .feature-card:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        const { createRoot } = ReactDOM;
+
+        // API配置
+        const API_BASE = 'http://8.148.77.51:3001/api';
+        const SOCKET_URL = 'http://8.148.77.51:3001';
+
+        // 主应用组件
+        function App() {
+            const [currentView, setCurrentView] = useState('login');
+            const [user, setUser] = useState(null);
+            const [socket, setSocket] = useState(null);
+
+            useEffect(() => {
+                // 检查是否已登录
+                const token = localStorage.getItem('token');
+                if (token) {
+                    // 验证token
+                    axios.get(`${API_BASE}/user/profile`, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    }).then(response => {
+                        setUser(response.data);
+                        setCurrentView('chat');
+                        initSocket(token);
+                    }).catch(() => {
+                        localStorage.removeItem('token');
+                    });
+                }
+            }, []);
+
+            const initSocket = (token) => {
+                const newSocket = io(SOCKET_URL, {
+                    auth: { token }
+                });
+                setSocket(newSocket);
+            };
+
+            const handleLogin = (userData) => {
+                setUser(userData);
+                setCurrentView('chat');
+                initSocket(localStorage.getItem('token'));
+            };
+
+            const handleLogout = () => {
+                if (socket) socket.disconnect();
+                setSocket(null);
+                setUser(null);
+                setCurrentView('login');
+                localStorage.removeItem('token');
+            };
+
+            return (
+                <div className="min-h-screen">
+                    {currentView === 'login' && <LoginView onLogin={handleLogin} />}
+                    {currentView === 'chat' && <ChatView user={user} socket={socket} onLogout={handleLogout} />}
+                </div>
+            );
+        }
+
+        // 登录组件
+        function LoginView({ onLogin }) {
+            const [isLogin, setIsLogin] = useState(true);
+            const [formData, setFormData] = useState({ username: '', email: '', password: '' });
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState('');
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                setLoading(true);
+                setError('');
+
+                try {
+                    const endpoint = isLogin ? '/login' : '/register';
+                    const response = await axios.post(`${API_BASE}${endpoint}`, formData);
+                    
+                    localStorage.setItem('token', response.data.token);
+                    onLogin(response.data.user);
+                } catch (err) {
+                    setError(err.response?.data?.message || '操作失败');
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            return (
+                <div className="min-h-screen gradient-bg flex items-center justify-center">
+                    <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
+                        <div className="text-center mb-6">
+                            <h1 className="text-3xl font-bold text-gray-800 mb-2">
+                                IM即时通讯系统
+                            </h1>
+                            <p className="text-gray-600">最新版本 - 功能更强大</p>
+                        </div>
+                        
+                        <div className="flex mb-6">
+                            <button
+                                className={`flex-1 py-2 px-4 ${isLogin ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+                                onClick={() => setIsLogin(true)}
+                            >
+                                登录
+                            </button>
+                            <button
+                                className={`flex-1 py-2 px-4 ${!isLogin ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+                                onClick={() => setIsLogin(false)}
+                            >
+                                注册
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleSubmit}>
+                            {!isLogin && (
+                                <div className="mb-4">
+                                    <input
+                                        type="email"
+                                        placeholder="邮箱"
+                                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        value={formData.email}
+                                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                        required
+                                    />
+                                </div>
+                            )}
+                            
+                            <div className="mb-4">
+                                <input
+                                    type="text"
+                                    placeholder="用户名"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    value={formData.username}
+                                    onChange={(e) => setFormData({...formData, username: e.target.value})}
+                                    required
+                                />
+                            </div>
+                            
+                            <div className="mb-6">
+                                <input
+                                    type="password"
+                                    placeholder="密码"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    value={formData.password}
+                                    onChange={(e) => setFormData({...formData, password: e.target.value})}
+                                    required
+                                />
+                            </div>
+
+                            {error && (
+                                <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                                    {error}
+                                </div>
+                            )}
+
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 disabled:opacity-50"
+                            >
+                                {loading ? '处理中...' : (isLogin ? '登录' : '注册')}
+                            </button>
+                        </form>
+
+                        <div className="mt-6 text-center">
+                            <p className="text-sm text-gray-600">
+                                ✨ 新功能：群组管理、文件传输、实时状态
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // 聊天组件
+        function ChatView({ user, socket, onLogout }) {
+            const [messages, setMessages] = useState([]);
+            const [newMessage, setNewMessage] = useState('');
+            const [onlineUsers, setOnlineUsers] = useState([]);
+            const [currentGroup, setCurrentGroup] = useState(null);
+            const [groups, setGroups] = useState([]);
+            const messagesEndRef = useRef(null);
+
+            useEffect(() => {
+                if (socket) {
+                    socket.on('message', (message) => {
+                        setMessages(prev => [...prev, message]);
+                    });
+
+                    socket.on('userOnline', (users) => {
+                        setOnlineUsers(users);
+                    });
+
+                    socket.on('userOffline', (users) => {
+                        setOnlineUsers(users);
+                    });
+
+                    return () => {
+                        socket.off('message');
+                        socket.off('userOnline');
+                        socket.off('userOffline');
+                    };
+                }
+            }, [socket]);
+
+            useEffect(() => {
+                messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }, [messages]);
+
+            const sendMessage = () => {
+                if (newMessage.trim() && socket) {
+                    socket.emit('message', {
+                        content: newMessage,
+                        senderId: user.id,
+                        senderName: user.username
+                    });
+                    setNewMessage('');
+                }
+            };
+
+            const handleKeyPress = (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            };
+
+            return (
+                <div className="h-screen flex flex-col">
+                    {/* 头部 */}
+                    <header className="bg-white shadow-sm border-b px-4 py-3">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                                <h1 className="text-xl font-semibold text-gray-800">IM聊天室</h1>
+                                <div className="online-indicator"></div>
+                                <span className="text-sm text-gray-600">{onlineUsers.length} 人在线</span>
+                            </div>
+                            <div className="flex items-center space-x-3">
+                                <span className="text-sm text-gray-600">欢迎, {user.username}</span>
+                                <button
+                                    onClick={onLogout}
+                                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-sm"
+                                >
+                                    退出
+                                </button>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* 聊天区域 */}
+                    <div className="flex-1 flex">
+                        {/* 消息列表 */}
+                        <div className="flex-1 flex flex-col">
+                            <div className="flex-1 overflow-y-auto p-4 space-y-3">
+                                {messages.map((message, index) => (
+                                    <div
+                                        key={index}
+                                        className={`flex ${message.senderId === user.id ? 'justify-end' : 'justify-start'}`}
+                                    >
+                                        <div
+                                            className={`message-bubble p-3 rounded-lg ${
+                                                message.senderId === user.id
+                                                    ? 'bg-blue-500 text-white'
+                                                    : 'bg-white border border-gray-200'
+                                            }`}
+                                        >
+                                            <div className="text-sm font-medium mb-1">
+                                                {message.senderName}
+                                            </div>
+                                            <div>{message.content}</div>
+                                            <div className="text-xs opacity-70 mt-1">
+                                                {new Date(message.timestamp || Date.now()).toLocaleTimeString()}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                                <div ref={messagesEndRef} />
+                            </div>
+
+                            {/* 输入区域 */}
+                            <div className="border-t bg-white p-4">
+                                <div className="flex space-x-2">
+                                    <input
+                                        type="text"
+                                        value={newMessage}
+                                        onChange={(e) => setNewMessage(e.target.value)}
+                                        onKeyPress={handleKeyPress}
+                                        placeholder="输入消息..."
+                                        className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    />
+                                    <button
+                                        onClick={sendMessage}
+                                        className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                                    >
+                                        发送
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* 在线用户列表 */}
+                        <div className="w-64 bg-white border-l border-gray-200 p-4">
+                            <h3 className="font-semibold text-gray-800 mb-3">在线用户</h3>
+                            <div className="space-y-2">
+                                {onlineUsers.map((onlineUser, index) => (
+                                    <div key={index} className="flex items-center space-x-2">
+                                        <div className="online-indicator"></div>
+                                        <span className="text-sm text-gray-700">{onlineUser.username}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // 渲染应用
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

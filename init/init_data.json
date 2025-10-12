@@ -1,0 +1,24 @@
+db.users.deleteMany({});
+db.chats.deleteMany({});
+db.messages.deleteMany({});
+
+db.users.insertOne({
+  _id: ObjectId("6716a9b2f9a0a1a1a1a1a1a1"),
+  username: "admin",
+  email: "admin@example.com",
+  password: "$2b$10$Zp4b9jS8A9T0zq2PwRAtYutA0mPoXxYHqt74lBJ3G5G7DAuP1QWZa"
+});
+
+db.chats.insertOne({
+  _id: ObjectId("6716a9b2f9a0a1a1a1a1a1a2"),
+  members: ["6716a9b2f9a0a1a1a1a1a1a1"],
+  lastMessage: "欢迎使用 IM 系统"
+});
+
+db.messages.insertOne({
+  chatId: "6716a9b2f9a0a1a1a1a1a1a2",
+  sender: "6716a9b2f9a0a1a1a1a1a1a1",
+  text: "系统初始化成功",
+  timestamp: new Date("2025-10-11T10:00:00Z")
+});
+'

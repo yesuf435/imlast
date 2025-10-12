@@ -1,0 +1,6 @@
+sender,receiver,group,content,type,timestamp,fileUrl,fileName,fileSize
+admin,testuser2,,你好！这是CSV格式的消息,text,2025-10-11T11:00:00Z,,,
+testuser2,admin,,CSV导入测试成功！,text,2025-10-11T11:01:00Z,,,
+admin,testuser2,,这是一张图片,image,2025-10-11T11:02:00Z,/uploads/test_image.jpg,test_image.jpg,512000
+testuser2,admin,,图片很漂亮！,text,2025-10-11T11:03:00Z,,,
+admin,testuser2,,发送一个文档,file,2025-10-11T11:04:00Z,/uploads/document.pdf,document.pdf,2048000

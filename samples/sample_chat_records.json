@@ -1,0 +1,62 @@
+{
+  "messages": [
+    {
+      "sender": "admin",
+      "receiver": "testuser2", 
+      "content": "你好！欢迎使用IM系统",
+      "type": "text",
+      "timestamp": "2025-10-11T10:30:00Z"
+    },
+    {
+      "sender": "testuser2",
+      "receiver": "admin",
+      "content": "谢谢！这个系统很不错",
+      "type": "text", 
+      "timestamp": "2025-10-11T10:31:00Z"
+    },
+    {
+      "sender": "admin",
+      "receiver": "testuser2",
+      "content": "我发一张图片给你看看",
+      "type": "image",
+      "fileInfo": {
+        "originalName": "screenshot.jpg",
+        "fileSize": 256000,
+        "mimeType": "image/jpeg",
+        "fileUrl": "/uploads/screenshot.jpg"
+      },
+      "metadata": {
+        "width": 1200,
+        "height": 800
+      },
+      "timestamp": "2025-10-11T10:32:00Z"
+    },
+    {
+      "sender": "testuser2", 
+      "receiver": "admin",
+      "content": "收到了，图片很清晰！",
+      "type": "text",
+      "timestamp": "2025-10-11T10:33:00Z"
+    },
+    {
+      "sender": "admin",
+      "receiver": "testuser2",
+      "content": "这是一个重要文档",
+      "type": "file",
+      "fileInfo": {
+        "originalName": "important_doc.pdf",
+        "fileSize": 1024000,
+        "mimeType": "application/pdf", 
+        "fileUrl": "/uploads/important_doc.pdf"
+      },
+      "timestamp": "2025-10-11T10:34:00Z"
+    },
+    {
+      "sender": "testuser2",
+      "receiver": "admin", 
+      "content": "文档已下载，谢谢分享！",
+      "type": "text",
+      "timestamp": "2025-10-11T10:35:00Z"
+    }
+  ]
+}

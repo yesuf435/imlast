@@ -1,0 +1,51 @@
+services:
+  im-mongodb:
+    image: mongo:6
+    container_name: im-mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/mongo:/data/db
+    networks:
+      - im-network
+
+  im-backend:
+    build: ./backend
+    container_name: im-backend
+    restart: always
+    environment:
+      - MONGO_URL=mongodb://im-mongodb:27017/im-system
+      - PORT=3001
+      - JWT_SECRET=your_super_secure_jwt_secret_key_2024_im_system
+      - NODE_ENV=production
+    depends_on:
+      - im-mongodb
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./uploads:/app/uploads
+    networks:
+      - im-network
+
+  im-frontend:
+    build:
+      context: ./frontend_production
+      args:
+        VITE_API_URL: http://im-backend:3001
+        VITE_SOCKET_URL: http://im-backend:3001
+    container_name: im-frontend
+    restart: always
+    environment:
+      - VITE_API_URL=http://im-backend:3001
+      - VITE_SOCKET_URL=http://im-backend:3001
+    ports:
+      - "3000:3000"
+    depends_on:
+      - im-backend
+    networks:
+      - im-network
+
+networks:
+  im-network:
+    driver: bridge

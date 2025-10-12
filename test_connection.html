@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IM系统连接测试</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .test-section {
+        margin: 20px 0;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      .success {
+        color: #28a745;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+      }
+      .error {
+        color: #dc3545;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+      }
+      .info {
+        color: #0c5460;
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      input {
+        padding: 8px;
+        margin: 5px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+      }
+      .result {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>IM系统前后端连接测试</h1>
+
+      <div class="test-section info">
+        <h3>服务状态</h3>
+        <p>后端地址: <span id="backend-url">http://localhost:3001</span></p>
+        <p>前端地址: <span id="frontend-url">http://localhost:3000</span></p>
+      </div>
+
+      <div class="test-section">
+        <h3>1. 后端健康检查</h3>
+        <button onclick="testHealth()">测试健康检查</button>
+        <div id="health-result" class="result" style="display: none"></div>
+      </div>
+
+      <div class="test-section">
+        <h3>2. API测试</h3>
+        <button onclick="testAPI()">测试API端点</button>
+        <div id="api-result" class="result" style="display: none"></div>
+      </div>
+
+      <div class="test-section">
+        <h3>3. 用户注册测试</h3>
+        <input
+          type="text"
+          id="username"
+          placeholder="用户名"
+          value="testuser"
+        />
+        <input
+          type="password"
+          id="password"
+          placeholder="密码"
+          value="testpass123"
+        />
+        <button onclick="testRegister()">测试注册</button>
+        <div id="register-result" class="result" style="display: none"></div>
+      </div>
+
+      <div class="test-section">
+        <h3>4. 用户登录测试</h3>
+        <input
+          type="text"
+          id="login-username"
+          placeholder="用户名"
+          value="testuser"
+        />
+        <input
+          type="password"
+          id="login-password"
+          placeholder="密码"
+          value="testpass123"
+        />
+        <button onclick="testLogin()">测试登录</button>
+        <div id="login-result" class="result" style="display: none"></div>
+      </div>
+
+      <div class="test-section">
+        <h3>5. Socket.IO连接测试</h3>
+        <button onclick="testSocket()">测试Socket连接</button>
+        <div id="socket-result" class="result" style="display: none"></div>
+      </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+    <script>
+      const backendURL = "http://localhost:3001";
+      let authToken = null;
+
+      function showResult(elementId, message, isSuccess = true) {
+        const element = document.getElementById(elementId);
+        element.style.display = "block";
+        element.className = `result ${isSuccess ? "success" : "error"}`;
+        element.innerHTML = message;
+      }
+
+      async function testHealth() {
+        try {
+          const response = await fetch(`${backendURL}/health`);
+          const data = await response.json();
+          showResult(
+            "health-result",
+            `✅ 健康检查通过<br>状态: ${data.status}<br>时间: ${data.timestamp}`,
+            true
+          );
+        } catch (error) {
+          showResult(
+            "health-result",
+            `❌ 健康检查失败: ${error.message}`,
+            false
+          );
+        }
+      }
+
+      async function testAPI() {
+        try {
+          const response = await fetch(`${backendURL}/api/test`);
+          const data = await response.json();
+          showResult(
+            "api-result",
+            `✅ API测试通过<br>状态: ${data.status}`,
+            true
+          );
+        } catch (error) {
+          showResult("api-result", `❌ API测试失败: ${error.message}`, false);
+        }
+      }
+
+      async function testRegister() {
+        try {
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+
+          const response = await fetch(`${backendURL}/api/register`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password }),
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            authToken = data.token;
+            showResult(
+              "register-result",
+              `✅ 注册成功<br>用户: ${
+                data.user.username
+              }<br>Token: ${data.token.substring(0, 20)}...`,
+              true
+            );
+          } else {
+            showResult("register-result", `❌ 注册失败: ${data.error}`, false);
+          }
+        } catch (error) {
+          showResult(
+            "register-result",
+            `❌ 注册请求失败: ${error.message}`,
+            false
+          );
+        }
+      }
+
+      async function testLogin() {
+        try {
+          const username = document.getElementById("login-username").value;
+          const password = document.getElementById("login-password").value;
+
+          const response = await fetch(`${backendURL}/api/login`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password }),
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            authToken = data.token;
+            showResult(
+              "login-result",
+              `✅ 登录成功<br>用户: ${data.user.username}<br>在线状态: ${data.user.online}`,
+              true
+            );
+          } else {
+            showResult("login-result", `❌ 登录失败: ${data.error}`, false);
+          }
+        } catch (error) {
+          showResult(
+            "login-result",
+            `❌ 登录请求失败: ${error.message}`,
+            false
+          );
+        }
+      }
+
+      function testSocket() {
+        try {
+          const socket = io(backendURL);
+
+          socket.on("connect", () => {
+            showResult(
+              "socket-result",
+              `✅ Socket连接成功<br>Socket ID: ${socket.id}`,
+              true
+            );
+
+            // 如果有token，尝试登录
+            if (authToken) {
+              socket.emit("login", { token: authToken });
+            }
+          });
+
+          socket.on("login_success", (data) => {
+            showResult(
+              "socket-result",
+              `✅ Socket登录成功<br>用户: ${data.username}<br>用户ID: ${data.userId}`,
+              true
+            );
+          });
+
+          socket.on("login_error", (error) => {
+            showResult(
+              "socket-result",
+              `❌ Socket登录失败: ${error.error}`,
+              false
+            );
+          });
+
+          socket.on("connect_error", (error) => {
+            showResult(
+              "socket-result",
+              `❌ Socket连接失败: ${error.message}`,
+              false
+            );
+          });
+
+          socket.on("disconnect", () => {
+            showResult("socket-result", `⚠️ Socket连接断开`, false);
+          });
+        } catch (error) {
+          showResult(
+            "socket-result",
+            `❌ Socket测试失败: ${error.message}`,
+            false
+          );
+        }
+      }
+
+      // 页面加载时自动测试健康检查
+      window.onload = function () {
+        testHealth();
+      };
+    </script>
+  </body>
+</html>

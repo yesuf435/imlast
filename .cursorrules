@@ -1,0 +1,33 @@
+project_goal: |
+  目标：让本项目的前后端能够稳定运行并可上线。
+  要求：
+  - 优先保证可运行与用户可用，修复报错和接口联调问题。
+  - 允许进行多文件修改与重构；若需要新增/删除文件请直接进行。
+  - TypeScript/ESLint 需通过；保留现有 API 响应格式。
+  - 安全：避免泄露敏感信息；校验输入；避免阻塞主线程。
+  - 性能：避免不必要的全量重渲染与大体积依赖；前端构建产物需可用。
+
+workflow_preferences:
+  - 始终先读 `frontend_production` 和 `backend` 的入口与服务相关代码。
+  - 当遇到跨文件问题时，优先在 Composer 中列出将修改的文件并一次性应用。
+  - 输出变更前，提供精简的变更说明与验收步骤。
+
+constraints:
+  - 避免修改 `node_modules`、`data/mongo`、`logs`、`uploads`。
+  - 不引入重量级依赖，除非必要并说明理由。
+
+acceptance_criteria:
+  - `npm run dev` 前后端均可启动无红字报错。
+  - 前端聊天页可发送/接收消息，后端日志无异常。
+  - 代码通过 ESLint/TS 检查；生产构建成功并可预览。
+
+communication_style:
+  - 中文简洁回复；给出可复制命令；必要时直接应用 edits。
+
+ui_guidelines:
+  - 阅读并遵循 `design/ui_brief.md`。
+  - 统一使用 Tailwind 与 `lucide-react`；优先组件化、可复用。
+  - 对亮/暗模式做同步适配；保证对比度 AA。
+  - 任何 UI 改造需提供简短验收步骤与可回退点。
+
+
