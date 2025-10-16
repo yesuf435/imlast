@@ -321,7 +321,7 @@ app.put(
       }
 
       // 更新申请状态
-      request.status = status;
+      request.status = "accepted";
       await request.save();
 
       // 添加好友关系
