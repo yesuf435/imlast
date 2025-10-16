@@ -228,8 +228,8 @@ const ChatPage: React.FC = () => {
                 onClick={() => setActiveTab(item.key)}
                 className={`relative w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 ${
                   activeTab === item.key
-                    ? "bg-white text-blue-600 shadow-md"
-                    : "text-white hover:text-blue-100 hover:bg-blue-500"
+                    ? "bg-white text-indigo-600 shadow-md"
+                    : "text-white hover:text-indigo-100 hover:bg-indigo-500"
                 }`}
                 title={item.label}
               >
