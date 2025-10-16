@@ -21,8 +21,11 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-        <LoadingSpinner size="lg" />
+      <div className="min-h-screen flex items-center justify-center gradient-bg-primary">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-white mb-4">IMCHAT</h1>
+          <LoadingSpinner size="lg" />
+        </div>
       </div>
     );
   }

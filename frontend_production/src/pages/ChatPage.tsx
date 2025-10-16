@@ -198,11 +198,11 @@ const ChatPage: React.FC = () => {
   return (
     <div className="h-screen bg-slate-50 dark:bg-slate-900 flex">
       {/* 主侧边栏 */}
-      <div className="w-16 bg-gradient-to-b from-indigo-600 to-indigo-700 dark:from-indigo-700 dark:to-indigo-800 flex flex-col items-center py-4 shadow-lg">
+      <div className="w-16 gradient-bg-primary flex flex-col items-center py-4 shadow-xl">
         {/* 用户头像 */}
         <div className="mb-8">
           <div
-            className="w-10 h-10 bg-white dark:bg-slate-200 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-700 font-semibold cursor-pointer hover:shadow-md transition-all duration-200"
+            className="w-10 h-10 bg-white dark:bg-slate-200 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-700 font-semibold cursor-pointer hover:shadow-lg hover:scale-105 transition-all duration-200"
             onClick={() => setShowUserProfile(true)}
           >
             {user.avatar ? (
@@ -226,10 +226,10 @@ const ChatPage: React.FC = () => {
               <button
                 key={item.key}
                 onClick={() => setActiveTab(item.key)}
-                className={`relative w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 ${
+                className={`relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 ${
                   activeTab === item.key
-                    ? "bg-white text-indigo-600 shadow-md"
-                    : "text-white hover:text-indigo-100 hover:bg-indigo-500"
+                    ? "bg-white text-indigo-600 shadow-lg scale-105"
+                    : "text-white hover:text-indigo-100 hover:bg-white/20 hover:scale-105"
                 }`}
                 title={item.label}
               >
@@ -249,7 +249,7 @@ const ChatPage: React.FC = () => {
           {/* 好友请求 */}
           <button
             onClick={() => setShowFriendRequests(true)}
-            className="w-10 h-10 rounded-lg flex items-center justify-center text-white hover:text-blue-100 hover:bg-blue-500 transition-all duration-200"
+            className="w-10 h-10 rounded-xl flex items-center justify-center text-white hover:text-indigo-100 hover:bg-white/20 hover:scale-105 transition-all duration-200"
             title="好友请求"
           >
             <Bell className="h-5 w-5" />
@@ -258,7 +258,7 @@ const ChatPage: React.FC = () => {
           {/* 添加好友 */}
           <button
             onClick={() => setShowAddFriend(true)}
-            className="w-10 h-10 rounded-lg flex items-center justify-center text-white hover:text-blue-100 hover:bg-blue-500 transition-all duration-200"
+            className="w-10 h-10 rounded-xl flex items-center justify-center text-white hover:text-indigo-100 hover:bg-white/20 hover:scale-105 transition-all duration-200"
             title="添加好友"
           >
             <UserPlus className="h-5 w-5" />
@@ -267,10 +267,10 @@ const ChatPage: React.FC = () => {
           {/* 设置 */}
           <button
             onClick={() => setActiveTab("settings")}
-            className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 ${
+            className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 ${
               activeTab === "settings"
-                ? "bg-white text-blue-600 shadow-md"
-                : "text-white hover:text-blue-100 hover:bg-blue-500"
+                ? "bg-white text-indigo-600 shadow-lg scale-105"
+                : "text-white hover:text-indigo-100 hover:bg-white/20 hover:scale-105"
             }`}
             title="设置"
           >
@@ -280,7 +280,7 @@ const ChatPage: React.FC = () => {
           {/* 退出登录 */}
           <button
             onClick={handleLogout}
-            className="w-10 h-10 rounded-lg flex items-center justify-center text-white hover:text-red-200 hover:bg-red-500 transition-all duration-200"
+            className="w-10 h-10 rounded-xl flex items-center justify-center text-white hover:text-red-200 hover:bg-red-500/50 hover:scale-105 transition-all duration-200"
             title="退出登录"
           >
             <LogOut className="h-5 w-5" />
@@ -289,9 +289,9 @@ const ChatPage: React.FC = () => {
       </div>
 
       {/* 侧边栏内容 */}
-      <div className="w-80 bg-white border-r border-gray-200 flex flex-col">
+      <div className="w-80 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 flex flex-col shadow-lg">
         {/* 搜索栏 */}
-        <div className="p-4 border-b border-gray-200">
+        <div className="p-4 border-b border-gray-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <input
@@ -299,7 +299,7 @@ const ChatPage: React.FC = () => {
               placeholder="搜索..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
             />
           </div>
         </div>

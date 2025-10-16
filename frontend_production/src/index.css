@@ -18,11 +18,14 @@
   --color-success-600: 22 163 74;  /* green-600 */
   --color-warning: 245 158 11;    /* amber-500 */
   --color-danger: 239 68 68;      /* red-500 */
-  --radius-md: 10px;
-  --radius-lg: 12px;
+  --color-accent: 255 107 53;     /* #ff6b35 - 温暖橙色点缀 */
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
 .dark {
@@ -57,12 +60,11 @@ code {
     monospace;
 }
 
-/* 语义工具类（配合 Tailwind） */
 .btn-primary {
   @apply inline-flex items-center justify-center px-4 h-10 rounded-[var(--radius-md)]
     bg-indigo-600 text-white hover:bg-indigo-700 active:bg-indigo-800
     transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed
-    shadow-sm hover:shadow-md;
+    shadow-md hover:shadow-lg;
 }
 
 .btn-secondary {
@@ -76,7 +78,7 @@ code {
   @apply inline-flex items-center justify-center px-4 h-10 rounded-[var(--radius-md)]
     bg-green-500 text-white hover:bg-green-600 active:bg-green-700
     transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed
-    shadow-sm hover:shadow-md;
+    shadow-md hover:shadow-lg;
 }
 
 .input-base {
@@ -89,15 +91,27 @@ code {
 
 .card {
   @apply rounded-[var(--radius-lg)] bg-white dark:bg-slate-800 
-    border border-slate-200 dark:border-slate-700 shadow-sm
-    hover:shadow-md transition-shadow duration-200;
+    border border-slate-200 dark:border-slate-700 shadow-md
+    hover:shadow-lg transition-all duration-200;
 }
 
 .message-bubble-own {
-  @apply bg-indigo-500 text-white rounded-2xl rounded-br-md px-4 py-2;
+  @apply bg-indigo-600 text-white rounded-2xl rounded-br-md px-4 py-2.5
+    shadow-md hover:shadow-lg transition-all duration-200;
 }
 
 .message-bubble-other {
-  @apply bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-slate-100 
-    rounded-2xl rounded-bl-md px-4 py-2;
+  @apply bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 
+    rounded-2xl rounded-bl-md px-4 py-2.5 shadow-sm
+    hover:shadow-md transition-all duration-200;
+}
+
+/* 渐变背景 */
+.gradient-bg-primary {
+  background: linear-gradient(135deg, #1e1b4b 0%, #3730a3 50%, #4f46e5 100%);
+}
+
+.gradient-bg-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
 }
