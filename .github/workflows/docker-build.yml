@@ -1,5 +1,6 @@
-name: Build Docker Images
-
+- name: Install Docker Compose
+      run: |
+        apt-get update && apt-get install -y docker-composename: Build Docker Images
 on:
   push:
     branches: [ main ]
