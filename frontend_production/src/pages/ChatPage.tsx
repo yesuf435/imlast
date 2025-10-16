@@ -196,13 +196,13 @@ const ChatPage: React.FC = () => {
   }
 
   return (
-    <div className="h-screen bg-gray-50 flex">
+    <div className="h-screen bg-slate-50 dark:bg-slate-900 flex">
       {/* 主侧边栏 */}
-      <div className="w-16 bg-gradient-to-b from-blue-600 to-blue-700 flex flex-col items-center py-4 shadow-lg">
+      <div className="w-16 bg-gradient-to-b from-indigo-600 to-indigo-700 dark:from-indigo-700 dark:to-indigo-800 flex flex-col items-center py-4 shadow-lg">
         {/* 用户头像 */}
         <div className="mb-8">
           <div
-            className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-blue-600 font-semibold cursor-pointer hover:shadow-md transition-shadow"
+            className="w-10 h-10 bg-white dark:bg-slate-200 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-700 font-semibold cursor-pointer hover:shadow-md transition-all duration-200"
             onClick={() => setShowUserProfile(true)}
           >
             {user.avatar ? (
