@@ -11,22 +11,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. 拉取代码
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. 安装 Docker Compose（完整修复）
+      # 安装 Docker Compose（彻底修复 apt 锁冲突）
       - name: Install Docker Compose
         run: |
+          sudo rm -f /var/lib/apt/lists/lock
+          sudo rm -f /var/cache/apt/archives/lock
+          sudo rm -f /var/lib/dpkg/lock*
+          sudo dpkg --configure -a || true
+          sudo apt-get clean
           sudo apt-get update -y
           sudo DEBIAN_FRONTEND=noninteractive apt-get install -y docker-compose
           docker-compose version
 
-      # 3. 设置 Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # 4. 构建后端镜像
       - name: Build backend image
         uses: docker/build-push-action@v5
         with:
@@ -36,7 +38,6 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      # 5. 构建前端镜像
       - name: Build frontend image
         uses: docker/build-push-action@v5
         with:
@@ -46,7 +47,6 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      # 6. 验证 docker-compose 配置并测试构建
       - name: Test Docker Compose
         run: |
           docker-compose config
