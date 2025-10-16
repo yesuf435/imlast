@@ -14,5 +14,5 @@ app.get('*', (req, res) => {
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`前端服务器运行在端口 ${PORT}`);
-    console.log(`访问地址: http://8.148.77.51:${PORT}`);
+    console.log(`访问地址: http://47.121.27.165:${PORT}`);
 });

@@ -100,15 +100,15 @@ const ChatArea: React.FC = () => {
   // 如果没有选择聊天
   if (!currentChat.id) {
     return (
-      <div className="flex-1 flex items-center justify-center bg-gray-50">
+      <div className="flex-1 flex items-center justify-center bg-white/95 backdrop-blur-sm">
         <div className="text-center">
-          <div className="w-24 h-24 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center">
-            <Send className="h-12 w-12 text-gray-400" />
+          <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+            <Send className="h-12 w-12 text-blue-500" />
           </div>
-          <h3 className="text-xl font-semibold text-gray-600 mb-2">
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">
             欢迎使用IM聊天
           </h3>
-          <p className="text-gray-500">选择一个聊天开始对话</p>
+          <p className="text-gray-600">选择一个聊天开始对话</p>
         </div>
       </div>
     );
@@ -117,11 +117,11 @@ const ChatArea: React.FC = () => {
   const currentMessages = messages[currentChat.id] || [];
 
   return (
-    <div className="flex-1 flex flex-col bg-white">
+    <div className="flex-1 flex flex-col bg-white/95 backdrop-blur-sm shadow-lg">
       {/* 聊天头部 */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-white">
+      <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-white/90">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
+          <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
             {currentChat.name[0].toUpperCase()}
           </div>
           <div>
@@ -134,19 +134,19 @@ const ChatArea: React.FC = () => {
 
         <div className="flex items-center space-x-2">
           <button
-            className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
             title="语音通话"
           >
             <Phone className="h-5 w-5" />
           </button>
           <button
-            className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
             title="视频通话"
           >
             <Video className="h-5 w-5" />
           </button>
           <button
-            className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
             title="更多"
           >
             <MoreVertical className="h-5 w-5" />
@@ -155,7 +155,7 @@ const ChatArea: React.FC = () => {
       </div>
 
       {/* 消息区域 */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-br from-blue-50/30 to-white/50">
         {currentMessages.length === 0 ? (
           <div className="text-center text-gray-500 py-8">
             <p>还没有消息，开始对话吧！</p>

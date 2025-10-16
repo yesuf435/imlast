@@ -20,7 +20,7 @@ module.exports = {
       DB_NAME: 'im_production',
       JWT_SECRET: process.env.JWT_SECRET || 'your_super_secure_jwt_secret_key_2024',
       JWT_EXPIRES_IN: '7d',
-      FRONTEND_URL: 'http://8.148.77.51'
+      FRONTEND_URL: 'http://47.121.27.165'
     },
     // 日志配置
     log_file: './logs/combined.log',
