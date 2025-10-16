@@ -69,10 +69,7 @@ const upload = multer({ storage });
 
 // MongoDB Connection
 mongoose
-  .connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(MONGO_URI)
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
@@ -303,7 +300,7 @@ app.put(
   authenticateToken,
   async (req, res) => {
     try {
-      const { requestId } = req.body;
+      const { requestId } = req.params;
       const request = await FriendRequest.findById(requestId);
 
       if (!request) {
@@ -321,7 +318,7 @@ app.put(
       }
 
       // 更新申请状态
-      request.status = status;
+      request.status = "accepted";
       await request.save();
 
       // 添加好友关系
