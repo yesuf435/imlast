@@ -1,6 +1,5 @@
-- name: Install Docker Compose
-      run: |
-        apt-get update && apt-get install -y docker-composename: Build Docker Images
+name: Build Docker Images
+
 on:
   push:
     branches: [ main ]
@@ -12,31 +11,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      # 1. 拉取代码
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
+      # 2. 安装 Docker Compose（解决 exit code 127）
+      - name: Install Docker Compose
+        run: |
+          apt-get update -y
+          apt-get install -y docker-compose
 
-    - name: Build backend image
-      uses: docker/build-push-action@v5
-      with:
-        context: ./backend
-        push: false
-        tags: im-backend:latest
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+      # 3. 设置 Docker Buildx（支持多阶段缓存）
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-    - name: Build frontend image
-      uses: docker/build-push-action@v5
-      with:
-        context: ./frontend_production
-        push: false
-        tags: im-frontend:latest
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+      # 4. 构建后端镜像
+      - name: Build backend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: false
+          tags: im-backend:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
-    - name: Test Docker Compose
-      run: |
-        docker-compose config
-        docker-compose build
+      # 5. 构建前端镜像
+      - name: Build frontend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend_production
+          push: false
+          tags: im-frontend:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # 6. 验证 docker-compose 配置（调试可见）
+      - name: Test Docker Compose
+        run: |
+          docker-compose config
+          docker-compose build
