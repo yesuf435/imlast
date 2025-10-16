@@ -40,16 +40,13 @@ services:
     environment:
       - VITE_API_URL=http://im-backend:3001
       - VITE_SOCKET_URL=http://im-backend:3001
-      - NODE_ENV=development
+      - NODE_ENV=production
     ports:
       - "3003:3003"
     depends_on:
       - im-backend
     networks:
       - im-network
-    volumes:
-      - ./frontend_production:/app
-      - /app/node_modules
 
 networks:
   im-network:
