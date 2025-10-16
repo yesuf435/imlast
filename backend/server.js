@@ -20,7 +20,7 @@ const io = socketIO(server, {
     origin: [
       "http://localhost:3000",
       "http://localhost:5173",
-      "http://8.148.77.51:3000",
+      "http://47.121.27.165:3000",
       "http://im-frontend:3000",
     ],
     methods: ["GET", "POST"],
@@ -40,7 +40,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "http://localhost:5173",
-      "http://8.148.77.51:3000",
+      "http://47.121.27.165:3000",
       "http://im-frontend:3000",
     ],
     credentials: true,
