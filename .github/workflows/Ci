@@ -1,0 +1,58 @@
+name: Build and Deploy to Server
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build backend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: false
+          tags: im-backend:latest
+
+      - name: Build frontend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend_production
+          push: false
+          tags: im-frontend:latest
+
+      - name: Upload Docker images as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-images
+          path: |
+            ./backend
+            ./frontend_production
+
+      - name: Deploy to Server via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASS }}
+          port: 22
+          script: |
+            cd /www/wwwroot/imlast || mkdir -p /www/wwwroot/imlast && cd /www/wwwroot/imlast
+            if [ ! -d ".git" ]; then
+              git clone https://github.com/Gymmmm/imlast.git .
+            else
+              git pull origin main
+            fi
+            docker-compose down || true
+            docker-compose build
+            docker-compose up -d
+            docker system prune -f
