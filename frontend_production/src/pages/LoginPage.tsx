@@ -1,10 +1,12 @@
 import { Eye, EyeOff, Lock, User } from 'lucide-react';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../store/useAuth';
 
 const LoginPage: React.FC = () => {
   const { login, isLoading } = useAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -22,6 +24,7 @@ const LoginPage: React.FC = () => {
     try {
       await login(formData.username, formData.password);
       toast.success('登录成功');
+      navigate('/chat', { replace: true });
     } catch (error: any) {
       toast.error(error.message || '登录失败');
     }
