@@ -16,7 +16,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server, {
   cors: {
-    origin: ['http://localhost:3000', 'http://localhost:5173', 'http://8.148.77.51:3000'],
+    origin: ['http://localhost:3000', 'http://localhost:5173', 'http://47.121.27.165:3000'],
     methods: ['GET', 'POST'],
     credentials: true
   }
@@ -50,10 +50,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // MongoDB Connection
-mongoose.connect(MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+mongoose.connect(MONGO_URI)
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.error('MongoDB connection error:', err));
 
