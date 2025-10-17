@@ -41,7 +41,7 @@ const GroupsList: React.FC<GroupsListProps> = ({ searchQuery }) => {
               key={group.id}
               className="flex items-center p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors"
             >
-              <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-semibold">
+              <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
                 {group.name[0]}
               </div>
               <div className="ml-3 flex-1">

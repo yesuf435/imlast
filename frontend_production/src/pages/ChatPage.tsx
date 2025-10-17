@@ -196,13 +196,13 @@ const ChatPage: React.FC = () => {
   }
 
   return (
-    <div className="h-screen bg-slate-50 dark:bg-slate-900 flex">
+    <div className="h-screen flex" style={{ background: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)' }}>
       {/* 主侧边栏 */}
-      <div className="w-16 bg-gradient-to-b from-indigo-600 to-indigo-700 dark:from-indigo-700 dark:to-indigo-800 flex flex-col items-center py-4 shadow-lg">
+      <div className="w-16 bg-gradient-to-b from-blue-700 to-blue-800 flex flex-col items-center py-4 shadow-lg">
         {/* 用户头像 */}
         <div className="mb-8">
           <div
-            className="w-10 h-10 bg-white dark:bg-slate-200 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-700 font-semibold cursor-pointer hover:shadow-md transition-all duration-200"
+            className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold cursor-pointer hover:shadow-md transition-all duration-200 hover:bg-blue-500"
             onClick={() => setShowUserProfile(true)}
           >
             {user.avatar ? (
@@ -228,8 +228,8 @@ const ChatPage: React.FC = () => {
                 onClick={() => setActiveTab(item.key)}
                 className={`relative w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 ${
                   activeTab === item.key
-                    ? "bg-white text-indigo-600 shadow-md"
-                    : "text-white hover:text-indigo-100 hover:bg-indigo-500"
+                    ? "bg-white text-blue-600 shadow-md"
+                    : "text-white hover:text-blue-100 hover:bg-blue-600"
                 }`}
                 title={item.label}
               >
@@ -249,7 +249,7 @@ const ChatPage: React.FC = () => {
           {/* 好友请求 */}
           <button
             onClick={() => setShowFriendRequests(true)}
-            className="w-10 h-10 rounded-lg flex items-center justify-center text-white hover:text-blue-100 hover:bg-blue-500 transition-all duration-200"
+            className="w-10 h-10 rounded-lg flex items-center justify-center text-white hover:text-blue-100 hover:bg-blue-600 transition-all duration-200"
             title="好友请求"
           >
             <Bell className="h-5 w-5" />
@@ -258,7 +258,7 @@ const ChatPage: React.FC = () => {
           {/* 添加好友 */}
           <button
             onClick={() => setShowAddFriend(true)}
-            className="w-10 h-10 rounded-lg flex items-center justify-center text-white hover:text-blue-100 hover:bg-blue-500 transition-all duration-200"
+            className="w-10 h-10 rounded-lg flex items-center justify-center text-white hover:text-blue-100 hover:bg-blue-600 transition-all duration-200"
             title="添加好友"
           >
             <UserPlus className="h-5 w-5" />
@@ -270,7 +270,7 @@ const ChatPage: React.FC = () => {
             className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 ${
               activeTab === "settings"
                 ? "bg-white text-blue-600 shadow-md"
-                : "text-white hover:text-blue-100 hover:bg-blue-500"
+                : "text-white hover:text-blue-100 hover:bg-blue-600"
             }`}
             title="设置"
           >
@@ -289,7 +289,7 @@ const ChatPage: React.FC = () => {
       </div>
 
       {/* 侧边栏内容 */}
-      <div className="w-80 bg-white border-r border-gray-200 flex flex-col">
+      <div className="w-80 bg-white/95 backdrop-blur-sm border-r border-white/20 flex flex-col shadow-lg">
         {/* 搜索栏 */}
         <div className="p-4 border-b border-gray-200">
           <div className="relative">
@@ -299,7 +299,7 @@ const ChatPage: React.FC = () => {
               placeholder="搜索..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
             />
           </div>
         </div>
