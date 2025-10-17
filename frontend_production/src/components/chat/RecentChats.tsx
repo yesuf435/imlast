@@ -129,7 +129,7 @@ const RecentChats: React.FC = () => {
 
   return (
     <div className="p-2">
-      <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3 px-2">
+      <h3 className="text-sm font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wider mb-3 px-2">
         最近聊天
       </h3>
       <div className="space-y-1">
@@ -137,15 +137,15 @@ const RecentChats: React.FC = () => {
           <button
             key={`${chat.type}_${chat.id}`}
             onClick={() => handleChatSelect(chat)}
-            className={`w-full flex items-center space-x-3 p-3 rounded-lg transition-colors ${
+            className={`w-full flex items-center space-x-3 p-3 rounded-xl transition-all duration-200 ${
               currentChat.id === chat.id && currentChat.type === chat.type
-                ? "bg-blue-50 border border-blue-200"
-                : "hover:bg-gray-50"
+                ? "bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-800 shadow-md"
+                : "hover:bg-gray-50 dark:hover:bg-slate-700/50 hover:shadow-sm"
             }`}
           >
             {/* 头像 */}
             <div className="relative">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+              <div className="w-10 h-10 bg-gradient-to-br from-indigo-400 to-indigo-600 rounded-full flex items-center justify-center text-white font-semibold text-sm shadow-md">
                 {chat.avatar ? (
                   <img
                     src={chat.avatar}
@@ -158,29 +158,29 @@ const RecentChats: React.FC = () => {
               </div>
               {/* 在线状态指示器 */}
               {chat.type === "private" && chat.isOnline && (
-                <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></div>
+                <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 border-2 border-white dark:border-slate-800 rounded-full shadow-sm"></div>
               )}
             </div>
 
             {/* 聊天信息 */}
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-gray-900 dark:text-white truncate">
                   {chat.name}
                 </h4>
                 {chat.unreadCount > 0 && (
-                  <span className="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <span className="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center shadow-sm">
                     {chat.unreadCount}
                   </span>
                 )}
               </div>
 
               <div className="flex items-center justify-between mt-1">
-                <p className="text-xs text-gray-500 truncate">
+                <p className="text-xs text-gray-500 dark:text-slate-400 truncate">
                   {chat.lastMessage || "还没有消息"}
                 </p>
                 {chat.lastMessageTime && (
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-gray-400 dark:text-slate-500">
                     {new Date(chat.lastMessageTime).toLocaleTimeString([], {
                       hour: "2-digit",
                       minute: "2-digit",
@@ -193,9 +193,9 @@ const RecentChats: React.FC = () => {
             {/* 聊天类型图标 */}
             <div className="flex-shrink-0">
               {chat.type === "group" ? (
-                <Users className="h-4 w-4 text-gray-400" />
+                <Users className="h-4 w-4 text-gray-400 dark:text-slate-500" />
               ) : (
-                <User className="h-4 w-4 text-gray-400" />
+                <User className="h-4 w-4 text-gray-400 dark:text-slate-500" />
               )}
             </div>
           </button>

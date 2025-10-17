@@ -100,15 +100,15 @@ const ChatArea: React.FC = () => {
   // 如果没有选择聊天
   if (!currentChat.id) {
     return (
-      <div className="flex-1 flex items-center justify-center bg-white/95 backdrop-blur-sm">
+      <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-slate-50 to-indigo-50 dark:from-slate-900 dark:to-indigo-950">
         <div className="text-center">
-          <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
-            <Send className="h-12 w-12 text-blue-500" />
+          <div className="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-indigo-100 to-indigo-200 dark:from-indigo-900 dark:to-indigo-800 rounded-full flex items-center justify-center shadow-lg">
+            <Send className="h-12 w-12 text-indigo-600 dark:text-indigo-400" />
           </div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">
-            欢迎使用IM聊天
+          <h3 className="text-xl font-semibold text-gray-600 dark:text-slate-300 mb-2">
+            欢迎使用 IMCHAT
           </h3>
-          <p className="text-gray-600">选择一个聊天开始对话</p>
+          <p className="text-gray-500 dark:text-slate-400">选择一个聊天开始对话</p>
         </div>
       </div>
     );
@@ -117,16 +117,16 @@ const ChatArea: React.FC = () => {
   const currentMessages = messages[currentChat.id] || [];
 
   return (
-    <div className="flex-1 flex flex-col bg-white/95 backdrop-blur-sm shadow-lg">
+    <div className="flex-1 flex flex-col bg-gradient-to-br from-slate-50 to-indigo-50/30 dark:from-slate-900 dark:to-indigo-950/30">
       {/* 聊天头部 */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-white/90">
+      <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm shadow-sm">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
+          <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-semibold shadow-md">
             {currentChat.name[0].toUpperCase()}
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900">{currentChat.name}</h3>
-            <p className="text-sm text-gray-500">
+            <h3 className="font-semibold text-gray-900 dark:text-white">{currentChat.name}</h3>
+            <p className="text-sm text-gray-500 dark:text-slate-400">
               {currentChat.type === "group" ? "群聊" : "私聊"}
             </p>
           </div>
@@ -134,19 +134,19 @@ const ChatArea: React.FC = () => {
 
         <div className="flex items-center space-x-2">
           <button
-            className="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+            className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-xl transition-all duration-200"
             title="语音通话"
           >
             <Phone className="h-5 w-5" />
           </button>
           <button
-            className="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+            className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-xl transition-all duration-200"
             title="视频通话"
           >
             <Video className="h-5 w-5" />
           </button>
           <button
-            className="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+            className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-xl transition-all duration-200"
             title="更多"
           >
             <MoreVertical className="h-5 w-5" />
@@ -155,9 +155,9 @@ const ChatArea: React.FC = () => {
       </div>
 
       {/* 消息区域 */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-br from-blue-50/30 to-white/50">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-transparent">
         {currentMessages.length === 0 ? (
-          <div className="text-center text-gray-500 py-8">
+          <div className="text-center text-gray-500 dark:text-slate-400 py-8">
             <p>还没有消息，开始对话吧！</p>
           </div>
         ) : (

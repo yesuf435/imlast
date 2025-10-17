@@ -106,7 +106,7 @@ const MessageBubble: React.FC<MessageProps> = ({
       >
         {/* 头像 */}
         {!isOwn && showAvatar && (
-          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
+          <div className="w-8 h-8 bg-gradient-to-br from-indigo-400 to-indigo-600 rounded-full flex items-center justify-center text-white text-xs font-semibold flex-shrink-0 shadow-md">
             {message.sender_name[0].toUpperCase()}
           </div>
         )}
@@ -122,10 +122,10 @@ const MessageBubble: React.FC<MessageProps> = ({
 
           {/* 消息内容 */}
           <div
-            className={`px-4 py-2 rounded-2xl shadow-sm ${
+            className={`px-4 py-2.5 rounded-2xl transition-all duration-200 ${
               isOwn
-                ? "bg-blue-500 text-white rounded-br-md"
-                : "bg-white text-gray-900 rounded-bl-md border border-gray-100"
+                ? "bg-indigo-600 text-white rounded-br-md shadow-md hover:shadow-lg"
+                : "bg-white dark:bg-slate-700 text-gray-900 dark:text-white rounded-bl-md shadow-sm hover:shadow-md"
             }`}
           >
             {renderMessageContent()}
