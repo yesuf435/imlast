@@ -226,10 +226,10 @@ app.post("/api/friend-requests", authenticateToken, async (req, res) => {
 
     // 检查是否已经发送过申请
     const existingRequest = friendRequests.find(
-      (fr) =>
-        fr.sender === user.id &&
-        fr.receiver === receiverId &&
-        fr.status === "pending"
+      (req) =>
+        req.sender === user.id &&
+        req.receiver === receiverId &&
+        req.status === "pending"
     );
 
     if (existingRequest) {
@@ -260,7 +260,7 @@ app.post("/api/friend-requests", authenticateToken, async (req, res) => {
 app.get("/api/friend-requests", authenticateToken, async (req, res) => {
   try {
     const userRequests = friendRequests.filter(
-      (fr) => fr.receiver === req.user.id && fr.status === "pending"
+      (req) => req.receiver === req.user.id && req.status === "pending"
     );
 
     res.json(userRequests);
@@ -278,7 +278,7 @@ app.put(
       const { requestId } = req.params;
       const { status } = req.body;
 
-      const request = friendRequests.find((fr) => fr.id === requestId);
+      const request = friendRequests.find((req) => req.id === requestId);
       if (!request) {
         return res.status(404).json({ error: "Friend request not found" });
       }
