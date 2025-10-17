@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../store/useAuth";
-import LoadingSpinner from "./ui/LoadingSpinner";
+import { useAuth } from "../../store/useAuth";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 interface AuthGuardProps {
   children: React.ReactNode;

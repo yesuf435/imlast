@@ -2,7 +2,6 @@ import { MessageSquare, User, Users } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { api } from "../../services/api";
-import { useAuth } from "../../store/useAuth";
 import { useChat } from "../../store/useChat";
 
 interface ChatItem {
@@ -19,7 +18,6 @@ interface ChatItem {
 const RecentChats: React.FC = () => {
   const { currentChat, setCurrentChat, friends, groups, setMessages } =
     useChat();
-  const { user } = useAuth();
   const [recentChats, setRecentChats] = useState<ChatItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 

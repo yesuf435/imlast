@@ -22,10 +22,11 @@ const ChatArea: React.FC = () => {
   const { user } = useAuth();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [isTyping, setIsTyping] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const typingTimeoutRef = useRef<number>();
+  // 预留：输入状态与节流定时器（当前未启用）
+  // const [isTyping, setIsTyping] = useState(false);
+  // const typingTimeoutRef = useRef<number>();
 
   // 滚动到底部
   const scrollToBottom = () => {

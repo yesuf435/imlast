@@ -333,16 +333,11 @@ const ChatPage: React.FC = () => {
         isOpen={showUserProfile}
         onClose={() => setShowUserProfile(false)}
         user={user}
-        onEdit={() => {
-          setShowUserProfile(false);
-          setShowUserProfileEdit(true);
-        }}
       />
 
-      <UserProfileEdit
-        isOpen={showUserProfileEdit}
-        onClose={() => setShowUserProfileEdit(false)}
-      />
+      {showUserProfileEdit && (
+        <UserProfileEdit onClose={() => setShowUserProfileEdit(false)} />
+      )}
     </div>
   );
 };

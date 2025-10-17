@@ -145,9 +145,8 @@ export const useChat = create<ChatState>((set) => ({
       },
     })),
 
-  markMessagesAsRead: (chatId) =>
-    set((state) => ({
+  markMessagesAsRead: () =>
+    set(() => ({
       // 这里可以添加标记消息为已读的逻辑
-      // 暂时保持原状
     })),
 }));
