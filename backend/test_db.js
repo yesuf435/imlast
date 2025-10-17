@@ -5,10 +5,7 @@ const MONGO_URI = 'mongodb://localhost:27017/im-system';
 console.log('🔍 测试MongoDB连接...');
 console.log('连接字符串:', MONGO_URI);
 
-mongoose.connect(MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+mongoose.connect(MONGO_URI)
 .then(() => {
   console.log('✅ MongoDB连接成功!');
   console.log('数据库名称:', mongoose.connection.db.databaseName);
