@@ -276,7 +276,6 @@ app.put(
   async (req, res) => {
     try {
       const { requestId } = req.params;
-      const { status } = req.body;
 
       const request = friendRequests.find((fr) => fr.id === requestId);
       if (!request) {
@@ -289,25 +288,23 @@ app.put(
           .json({ error: "Not authorized to handle this request" });
       }
 
-      request.status = status;
+      request.status = "accepted";
 
-      if (status === "accepted") {
-        const user = users.get(req.user.username);
-        const friend = Array.from(users.values()).find(
-          (u) => u.id === request.sender
-        );
+      const user = users.get(req.user.username);
+      const friend = Array.from(users.values()).find(
+        (u) => u.id === request.sender
+      );
 
-        if (user && friend) {
-          if (!user.friends.includes(request.sender)) {
-            user.friends.push(request.sender);
-          }
-          if (!friend.friends.includes(user.id)) {
-            friend.friends.push(user.id);
-          }
+      if (user && friend) {
+        if (!user.friends.includes(request.sender)) {
+          user.friends.push(request.sender);
+        }
+        if (!friend.friends.includes(user.id)) {
+          friend.friends.push(user.id);
         }
       }
 
-      res.json({ message: `Friend request ${status} successfully` });
+      res.json({ message: "Friend request accepted successfully" });
     } catch (error) {
       res.status(500).json({ error: "Failed to handle friend request" });
     }
