@@ -1,10 +1,12 @@
 import { Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/useAuth";
 
 const RegisterPage: React.FC = () => {
   const { register, isLoading } = useAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -35,7 +37,7 @@ const RegisterPage: React.FC = () => {
     try {
       await register(formData.username, formData.password, formData.email);
       toast.success("注册成功，请登录");
-      window.location.href = "/login";
+      navigate("/login");
     } catch (error: any) {
       toast.error(error.message || "注册失败");
     }

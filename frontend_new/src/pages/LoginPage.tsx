@@ -24,7 +24,7 @@ const LoginPage: React.FC = () => {
     try {
       await login(formData.username, formData.password);
       toast.success("登录成功");
-      navigate('/chat', { replace: true });
+      navigate("/chat");
     } catch (error: any) {
       toast.error(error.message || "登录失败");
     }
